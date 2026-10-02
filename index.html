@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>語塊節奏譜 ─ 100 個高頻日常英語 Chunks 刻意練習</title>
+<style>
+:root{
+  /* 宣告本頁自備深淺兩套配色，阻止瀏覽器的強制深色反轉 */
+  color-scheme:light dark;
+  /* 紙與墨 */
+  --ground:#e9e8ef;
+  --ground-2:#dfdee8;
+  --panel:#fdfdff;
+  --panel-2:#f2f1f7;
+  --ink:#1b1b2f;
+  --ink-2:#414264;
+  --muted:#636489;
+  --line:#d3d1e0;
+  --line-2:#c0bdd2;
+  /* 靛：結構 */
+  --indigo:#2f3269;
+  --indigo-2:#4a4e95;
+  --indigo-ink:#e7e7f4;
+  /* 朱：重音與主要動作 */
+  --stress:#b8342b;
+  --stress-2:#d9574c;
+  --stress-soft:#fbeceb;
+  /* 輔助 */
+  --weak:#9b9bbb;
+  --gold:#8f6a08;
+  --gold-soft:#fbf2dc;
+  --green:#1f7a5c;
+  --green-soft:#e4f2ec;
+  /* 介面雜項 */
+  --link:#2f3269;          /* 次要文字按鈕 */
+  --hover:#eceaf6;         /* 淺層 hover 底 */
+  --nav-bg:rgba(233,232,239,.95);
+  --toast-bg:#1b1b2f;
+  --toast-fg:#ffffff;
+  --on-indigo:#ffffff;     /* 壓在靛底上的文字 */
+  --radius:5px;
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,"Songti TC","Noto Serif TC",Georgia,serif;
+  --body:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Noto Sans Mono",monospace;
+  --shadow:0 1px 2px rgba(27,27,47,.05),0 4px 14px rgba(27,27,47,.05);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--body);line-height:1.78;font-size:16px;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px 90px}
+
+/* ============ Hero ============ */
+header.hero{
+  position:relative;background:var(--indigo);color:var(--indigo-ink);
+  padding:46px 20px 34px;overflow:hidden;
+}
+header.hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:5px;
+  background:repeating-linear-gradient(90deg,var(--stress) 0 24px,var(--indigo-2) 24px 44px);
+}
+.hero-inner{max-width:1080px;margin:0 auto;position:relative}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--stress-2);margin:0 0 12px}
+h1{font-family:var(--display);font-size:clamp(30px,6vw,50px);line-height:1.12;margin:0 0 10px;font-weight:600;letter-spacing:.015em;color:#fff}
+.hero-sub{font-size:clamp(14.5px,2.4vw,17px);color:#b6b8dd;margin:0 0 26px;max-width:46em;line-height:1.85}
+.hero-sub strong{color:#fff;font-weight:600}
+
+/* Hero 內的節奏譜示範 */
+.hero-demo{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:var(--radius);padding:16px 18px 14px;max-width:470px}
+.hero-demo .dl{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:#9093c9;text-transform:uppercase;margin:0 0 10px}
+.hero-demo .dz{font-size:13px;color:#b6b8dd;margin:10px 0 0}
+.hero-stats{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:22px;font-family:var(--mono);font-size:11.5px;color:#9093c9;letter-spacing:.08em}
+.hero-stats b{color:#fff;font-size:21px;font-family:var(--display);font-weight:600;margin-right:6px;vertical-align:-1px}
+
+/* ============ 節奏譜 ============ */
+.score{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 13px;padding:4px 0 2px}
+.beat{display:flex;flex-direction:column;align-items:center;gap:5px;line-height:1}
+.beat i{display:block;border-radius:50%;flex:none}
+.beat.S i{width:11px;height:11px;background:var(--stress)}
+.beat.w i{width:6px;height:6px;background:var(--indigo-2);margin:2.5px 0}
+.beat.x i{width:7px;height:7px;border:1.5px solid var(--weak);background:transparent;margin:2px 0;box-sizing:border-box}
+.beat em{font-style:normal;font-family:var(--display);font-size:19px;letter-spacing:.005em;color:var(--ink-2);white-space:nowrap}
+.beat.S em{font-weight:700;color:var(--ink)}
+.beat.x em{color:var(--muted)}
+.score.sm{gap:9px 10px}
+.score.sm .beat em{font-size:16px}
+.score.sm .beat.S i{width:9px;height:9px}
+.score.lg{gap:16px 16px}
+.score.lg .beat em{font-size:clamp(20px,4.4vw,30px)}
+.score.lg .beat.S i{width:13px;height:13px}
+.score.lg .beat.w i,.score.lg .beat.x i{width:8px;height:8px}
+/* 盲測遮蔽：留下節奏，藏起字 */
+.score.masked .beat em{color:transparent;background:var(--ground-2);border-radius:3px;user-select:none}
+/* Hero 內反白版 */
+.hero-demo .beat em{color:#c9cbe8}
+.hero-demo .beat.S em{color:#fff}
+.hero-demo .beat.x em{color:#8688bd}
+.hero-demo .beat.S i{background:var(--stress-2)}
+.hero-demo .beat.w i{background:#8c8fd0}
+.hero-demo .beat.x i{border-color:#6d70a8}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;color:var(--ink-2);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{display:block;border-radius:50%;flex:none}
+.legend .lS{width:11px;height:11px;background:var(--stress)}
+.legend .lw{width:6px;height:6px;background:var(--indigo-2)}
+.legend .lx{width:7px;height:7px;border:1.5px solid var(--weak);box-sizing:border-box}
+
+/* ============ Nav ============ */
+nav.tabs{
+  position:sticky;top:0;z-index:40;margin:0 -20px 28px;padding:9px 16px;
+  background:var(--nav-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-2);display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+nav.tabs::-webkit-scrollbar{height:0}
+.tab{
+  flex:0 0 auto;background:transparent;border:1px solid transparent;color:var(--ink-2);
+  font-family:var(--body);font-size:14.5px;font-weight:600;padding:8px 15px;border-radius:var(--radius);
+  cursor:pointer;white-space:nowrap;transition:background .15s,color .15s;
+}
+.tab:hover{background:var(--ground-2)}
+.tab.on{background:var(--indigo);color:#fff}
+.tab:focus-visible,button:focus-visible,input:focus-visible,audio:focus-visible{outline:3px solid var(--stress);outline-offset:2px}
+
+/* ============ Sections ============ */
+section.view{display:none}
+section.view.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+h2.sec{font-family:var(--display);font-size:clamp(22px,4vw,28px);font-weight:600;margin:6px 0 5px;letter-spacing:.012em}
+.sec-note{color:var(--muted);font-size:14px;margin:0 0 24px;max-width:56em;line-height:1.8}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;margin-bottom:16px;box-shadow:var(--shadow)}
+.card h3{font-family:var(--display);font-size:19.5px;margin:0 0 10px;font-weight:600;letter-spacing:.01em}
+.card p{margin:0 0 13px;font-size:15px;color:var(--ink-2);line-height:1.85}
+.card p:last-child{margin-bottom:0}
+.card strong{color:var(--ink)}
+.cols2{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+
+/* 階段卡 */
+.stages{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(172px,1fr));margin:4px 0 0}
+.stage{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--stress);border-radius:var(--radius);padding:16px 16px 14px;box-shadow:var(--shadow)}
+.stage .sn{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--stress);display:block;margin-bottom:7px}
+.stage h4{margin:0 0 7px;font-size:16px;font-family:var(--display);font-weight:600}
+.stage p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.7}
+.quote{border-left:3px solid var(--stress);padding:6px 0 6px 18px;font-family:var(--display);font-size:18px;color:var(--link);margin:24px 0 0;line-height:1.6}
+
+/* 正字計數 */
+.tally{display:inline-flex;align-items:center;gap:3px;flex:none}
+.tally svg{width:21px;height:21px;display:block}
+.tally svg path{stroke:var(--line-2);stroke-width:2.1;stroke-linecap:round;fill:none;transition:stroke .3s}
+.tally svg path.hit{stroke:var(--indigo-2)}
+.tally.full svg path.hit{stroke:var(--gold)}
+
+/* ============ Library ============ */
+.toolbar{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:12px}
+.chip{
+  background:var(--panel);border:1px solid var(--line);color:var(--ink-2);
+  font-size:13px;font-weight:600;padding:6px 13px;border-radius:30px;cursor:pointer;font-family:var(--body);
+  transition:all .15s;
+}
+.chip:hover{border-color:var(--indigo-2);color:var(--link)}
+.chip.on{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.chip .ct{font-family:var(--mono);font-size:10.5px;opacity:.7;margin-left:5px}
+.search{flex:1 1 220px;min-width:150px;padding:9px 13px;border:1px solid var(--line-2);border-radius:var(--radius);font-size:14px;font-family:var(--body);background:var(--panel);color:var(--ink)}
+.tiny-btn{background:var(--panel);border:1px solid var(--line-2);color:var(--ink-2);font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:var(--radius);cursor:pointer;font-family:var(--body)}
+.tiny-btn:hover{background:var(--panel-2);border-color:var(--indigo-2)}
+.tiny-btn.on{background:var(--stress-soft);border-color:var(--stress);color:var(--stress)}
+.catnote{background:var(--indigo);color:var(--indigo-ink);border-radius:var(--radius);padding:11px 16px;font-size:13.5px;margin:0 0 16px;line-height:1.7}
+.catnote b{color:#fff;font-family:var(--display);font-size:15px;margin-right:8px}
+
+.grid{display:grid;gap:15px;grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.chunk{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:15px 17px 13px;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:border-color .2s}
+.chunk:hover{border-color:var(--line-2)}
+.chunk.done{border-color:var(--gold);background:linear-gradient(180deg,var(--gold-soft) 0,var(--panel) 46px)}
+.chunk-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}
+.num{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.09em}
+.num b{color:var(--link);font-weight:700;font-size:12px}
+.zh{font-size:13.5px;color:var(--muted);margin:9px 0 0}
+.chunk-acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
+.act{background:var(--panel-2);border:1px solid var(--line);color:var(--ink-2);font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:var(--radius);cursor:pointer;font-family:var(--body);white-space:nowrap;transition:all .15s}
+.act:hover{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.act.key{background:var(--stress-soft);border-color:var(--stress);color:var(--stress)}
+.act.key:hover{background:var(--stress);color:#fff}
+.act.rec-on{background:var(--stress);color:#fff;border-color:var(--stress)}
+.detail{display:none;margin-top:12px;border-top:1px dashed var(--line-2);padding-top:12px}
+.detail.on{display:block}
+.tip{font-family:var(--mono);font-size:12.5px;line-height:1.85;color:var(--link);background:var(--panel-2);border-left:3px solid var(--indigo-2);border-radius:0 var(--radius) var(--radius) 0;padding:10px 13px;margin:0 0 12px}
+.ex{font-family:var(--display);font-size:15.5px;color:var(--ink);margin:0 0 3px;line-height:1.55}
+.exz{font-size:13px;color:var(--muted);margin:0}
+.ex-acts{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.ex-acts .act{font-size:12px;padding:4px 9px}
+.playback{width:100%;margin-top:10px;height:34px}
+.empty{color:var(--muted);font-size:14px;padding:40px 0;text-align:center;grid-column:1/-1}
+
+/* ============ Drill ============ */
+.drill-stage{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px;min-height:300px;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:var(--shadow)}
+.drill-cat{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:14px;text-align:center}
+.drill-cat b{color:var(--stress)}
+.drill-zh{font-size:clamp(17px,3.4vw,21px);color:var(--ink-2);margin:0 0 20px;text-align:center}
+.drill-score{justify-content:center;margin:0 auto;max-width:760px}
+.countdown{font-family:var(--display);font-size:56px;color:var(--stress);margin:8px 0;min-height:1em;line-height:1;text-align:center}
+.drill-tip{font-family:var(--mono);font-size:13px;color:var(--link);background:var(--panel-2);border-left:3px solid var(--indigo-2);padding:11px 14px;border-radius:0 var(--radius) var(--radius) 0;margin:18px auto 0;max-width:660px;text-align:left;line-height:1.85;display:none}
+.drill-tip.on{display:block}
+.drill-ex{max-width:660px;width:100%;margin:14px auto 0;padding:13px 15px;background:var(--green-soft);border-left:3px solid var(--green);border-radius:0 var(--radius) var(--radius) 0;text-align:left;display:none}
+.drill-ex.on{display:block}
+.drill-ex .de-en{font-family:var(--display);font-size:16.5px;line-height:1.55;margin:0;color:var(--ink)}
+.drill-ex .de-zh{font-size:13px;color:var(--muted);margin:3px 0 0}
+.drill-ctrl{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px;width:100%}
+.btn{background:var(--indigo);border:1px solid var(--indigo);color:#fff;font-family:var(--body);font-size:14px;font-weight:600;padding:9px 16px;border-radius:var(--radius);cursor:pointer;transition:all .15s}
+.btn:hover{background:var(--indigo-2);border-color:var(--indigo-2)}
+.btn.ghost{background:var(--panel);color:var(--link);border-color:var(--line-2)}
+.btn.ghost:hover{background:var(--panel-2);border-color:var(--indigo)}
+.btn.ghost.used{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+.btn.warm{background:var(--stress);border-color:var(--stress);color:#fff}
+.btn.warm:hover{background:var(--stress-2);border-color:var(--stress-2)}
+.progressline{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin:20px 0 0;width:100%;max-width:660px}
+.progressline i{display:block;height:100%;background:var(--stress);width:0;transition:width .35s}
+
+/* ============ Dialogue ============ */
+.scene{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:16px;box-shadow:var(--shadow)}
+.scene h3{font-family:var(--display);font-size:18.5px;margin:0 0 3px;font-weight:600}
+.scene .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin:0 0 16px}
+.line{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid var(--panel-2);align-items:flex-start}
+.line:last-of-type{border-bottom:none}
+.spk{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--panel);background:var(--indigo-2);flex:0 0 22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:4px}
+.line-body{flex:1;min-width:0}
+.line-en{font-family:var(--display);font-size:16.5px;line-height:1.6;margin:0}
+.line-zh{font-size:12.5px;color:var(--muted);margin:3px 0 0}
+mark{background:var(--stress-soft);color:var(--stress);padding:1px 4px;border-radius:3px;font-weight:600}
+.play-line{flex:0 0 auto;background:none;border:none;cursor:pointer;font-size:15px;padding:3px 4px;color:var(--muted);line-height:1}
+.play-line:hover{color:var(--stress)}
+
+/* ============ Quiz ============ */
+.q-head{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.08em;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.q-head b{color:var(--link)}
+.q-prompt{font-size:clamp(18px,3.6vw,22px);font-family:var(--body);margin:0 0 6px;text-align:center;color:var(--ink);font-weight:600}
+.q-hint{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:center;margin:0 0 20px;letter-spacing:.06em}
+.opts{display:grid;gap:9px}
+.opt{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--radius);padding:13px 15px;text-align:left;cursor:pointer;font-family:var(--display);font-size:16.5px;color:var(--ink);line-height:1.45;transition:all .15s}
+.opt:hover{border-color:var(--indigo-2);background:var(--hover)}
+.opt.right{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:600}
+.opt.wrong{background:var(--stress-soft);border-color:var(--stress);color:var(--stress)}
+.opt[disabled]{cursor:default}
+.q-feed{font-size:13.5px;line-height:1.85;margin-top:16px;padding:13px 15px;background:var(--panel-2);border-left:3px solid var(--indigo-2);border-radius:0 var(--radius) var(--radius) 0;color:var(--ink-2);display:none}
+.q-feed.on{display:block}
+.q-feed .fm{font-family:var(--mono);font-size:12.5px;color:var(--link);display:block;margin-bottom:7px}
+.feed-acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+
+/* ============ Log ============ */
+.bignum{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:13px;margin-bottom:18px}
+.bignum div{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:15px 17px;box-shadow:var(--shadow)}
+.bignum b{display:block;font-family:var(--display);font-size:35px;line-height:1.1;color:var(--link)}
+.bignum span{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.bars{display:grid;gap:11px;margin-top:4px}
+.bar-row{display:grid;grid-template-columns:minmax(118px,1.1fr) 3fr auto;gap:13px;align-items:center;font-size:13.5px}
+.bar-row .lbl{color:var(--ink-2);font-weight:600}
+.bar{height:13px;background:var(--panel-2);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--indigo-2);transition:width .5s}
+.bar i.done{background:var(--gold)}
+.bar-row .val{font-family:var(--mono);font-size:11.5px;color:var(--muted);min-width:46px;text-align:right}
+.todo-item{font-family:var(--mono);font-size:12.5px;line-height:2;color:var(--ink-2);display:flex;gap:10px;align-items:baseline}
+.todo-item .tn{color:var(--muted);flex:none}
+.todo-item .tr{color:var(--stress);flex:none;margin-left:auto}
+
+/* ============ Toast ============ */
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--toast-bg);color:var(--toast-fg);padding:11px 20px;border-radius:var(--radius);font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:99;max-width:90vw;text-align:center;box-shadow:0 8px 24px rgba(27,27,47,.25)}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+footer{margin-top:46px;padding-top:22px;border-top:1px solid var(--line-2);font-size:12.5px;color:var(--muted);text-align:center}
+footer .couplet{font-family:var(--display);font-size:15.5px;color:var(--link);margin-bottom:8px;line-height:1.7}
+
+@media (max-width:680px){
+  .wrap{padding:0 14px 70px}
+  nav.tabs{margin:0 -14px 22px;padding:8px 12px}
+  header.hero{padding:34px 16px 28px}
+  .grid{grid-template-columns:1fr}
+  .card{padding:19px 17px}
+  .drill-stage{padding:22px 15px}
+  .bar-row{grid-template-columns:1fr auto;gap:5px 10px}
+  .bar-row .bar{grid-column:1/-1;order:3}
+  .score{gap:10px 9px}
+  .beat em{font-size:17px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ============ 深色模式 ============ */
+/* 系統為深色，且使用者未手動選亮色時套用 */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#15151f;
+    --ground-2:#22222f;
+    --panel:#1d1d29;
+    --panel-2:#272735;
+    --ink:#edecf5;
+    --ink-2:#c4c2d6;
+    --muted:#9190ad;
+    --line:#32324a;
+    --line-2:#45455f;
+    --indigo:#343a7e;
+    --indigo-2:#8f93dd;
+    --indigo-ink:#e9e9f7;
+    --stress:#f28a7c;
+    --stress-2:#ff9f92;
+    --stress-soft:#3b2420;
+    --weak:#73739a;
+    --gold:#ddb75a;
+    --gold-soft:#36301c;
+    --green:#5fc99f;
+    --green-soft:#1c3a30;
+    --link:#a9ade8;
+    --hover:#2e2e42;
+    --nav-bg:rgba(21,21,31,.95);
+    --toast-bg:#edecf5;
+    --toast-fg:#15151f;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+  }
+  :root:not([data-theme="light"]) .chunk.done{background:linear-gradient(180deg,var(--gold-soft) 0,var(--panel) 46px)}
+  :root:not([data-theme="light"]) .score.masked .beat em{background:var(--line)}
+  :root:not([data-theme="light"]) .hero-sub{color:#b9bbe4}
+  :root:not([data-theme="light"]) .hero-demo{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12)}
+}
+/* 使用者手動選深色時套用 */
+:root[data-theme="dark"]{
+    --ground:#15151f;
+    --ground-2:#22222f;
+    --panel:#1d1d29;
+    --panel-2:#272735;
+    --ink:#edecf5;
+    --ink-2:#c4c2d6;
+    --muted:#9190ad;
+    --line:#32324a;
+    --line-2:#45455f;
+    --indigo:#343a7e;
+    --indigo-2:#8f93dd;
+    --indigo-ink:#e9e9f7;
+    --stress:#f28a7c;
+    --stress-2:#ff9f92;
+    --stress-soft:#3b2420;
+    --weak:#73739a;
+    --gold:#ddb75a;
+    --gold-soft:#36301c;
+    --green:#5fc99f;
+    --green-soft:#1c3a30;
+    --link:#a9ade8;
+    --hover:#2e2e42;
+    --nav-bg:rgba(21,21,31,.95);
+    --toast-bg:#edecf5;
+    --toast-fg:#15151f;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+}
+:root[data-theme="dark"] .chunk.done{background:linear-gradient(180deg,var(--gold-soft) 0,var(--panel) 46px)}
+:root[data-theme="dark"] .score.masked .beat em{background:var(--line)}
+:root[data-theme="dark"] .hero-sub{color:#b9bbe4}
+:root[data-theme="dark"] .hero-demo{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12)}
+
+/* 主題切換鈕 */
+.theme-btn{
+  flex:0 0 auto;margin-left:auto;background:var(--panel);border:1px solid var(--line-2);
+  color:var(--ink-2);font-family:var(--body);font-size:13px;font-weight:600;
+  padding:7px 13px;border-radius:var(--radius);cursor:pointer;white-space:nowrap;
+}
+.theme-btn:hover{border-color:var(--indigo-2);color:var(--link)}
+
+@media print{
+  nav.tabs,.chunk-acts,.ex-acts,.drill-ctrl,.toolbar,footer .couplet{display:none!important}
+  section.view{display:block!important}
+  body{background:#fff}
+  .card,.chunk,.scene{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Deliberate Practice · 100 Lexical Chunks</p>
+    <h1>語塊節奏譜</h1>
+    <p class="hero-sub">100 個高頻日常英語語塊。不拆字、不翻譯、不重組 ── 每一組都附上<strong>重音節奏譜</strong>，當作一個不可分割的發音單位反覆操練，直到肌肉先於思考。</p>
+    <div class="hero-demo">
+      <p class="dl">節奏譜範例</p>
+      <div class="score" id="heroScore"></div>
+      <p class="dz">● 重讀　· 輕讀　○ 弱化吞音</p>
+    </div>
+    <div class="hero-stats">
+      <span><b>100</b>語塊</span>
+      <span><b>10</b>功能場域</span>
+      <span><b>6</b>階段操練</span>
+      <span><b id="heroDone">0</b>已練成</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<nav class="tabs" id="tabs">
+  <button class="tab on" data-target="v-why">訓練原理</button>
+  <button class="tab" data-target="v-lib">語塊庫</button>
+  <button class="tab" data-target="v-drill">刻意練習</button>
+  <button class="tab" data-target="v-talk">情境應用</button>
+  <button class="tab" data-target="v-quiz">產出測驗</button>
+  <button class="tab" data-target="v-log">訓練日誌</button>
+  <button class="theme-btn" id="themeBtn" aria-label="切換亮色或深色顯示">◐ 亮／深</button>
+</nav>
+
+<!-- ===== 訓練原理 ===== -->
+<section class="view on" id="v-why">
+  <h2 class="sec">為什麼要練語塊，而不是背單字</h2>
+  <p class="sec-note">語塊（chunk）是母語者實際存放在心裡的最小單位。背單字練的是零件庫，練語塊練的是出廠的成品。</p>
+
+  <div class="cols2">
+    <div class="card">
+      <h3>工作記憶只有幾格</h3>
+      <p>說英語卡住，多半不是單字量不夠，而是<strong>臨場組裝太耗資源</strong>。當你想說「依我看」，若腦中還在跑 the → way → I → see → it 五個零件，工作記憶就滿了，句子後半自然崩掉。</p>
+      <p>母語者不是組裝得比較快，而是根本沒在組裝。<em>The way I see it,</em> 對他們來說是一個檔案、一口氣、一段固定的旋律。五格變一格，剩下的四格才能拿來想「我到底要講什麼」。</p>
+      <p>所以練習的目標不是「記得」，而是<strong>「不用想」</strong>。</p>
+    </div>
+    <div class="card">
+      <h3>三個不可違反的操練原則</h3>
+      <p><strong>一、不准拆開唸。</strong>What are you up to 不是四個字，是 <span style="font-family:var(--mono);color:var(--link)">whaddaya-up-tə</span>。逐字清楚地唸，練出來的是一輩子改不掉的錯節奏。</p>
+      <p><strong>二、先要速度，再要漂亮。</strong>寧可含糊而流暢，不要清晰而斷裂 ── 母語者聽的是節奏輪廓，不是音素。</p>
+      <p><strong>三、次數比時數重要。</strong>同一組唸 20 次、分 4 天，遠勝於一天唸 80 次。本工具用「正」字計數：每完成一次完整操練畫一劃，五劃成一個「正」。</p>
+    </div>
+  </div>
+
+  <h2 class="sec" style="margin-top:34px">怎麼讀節奏譜</h2>
+  <p class="sec-note">每組語塊上方的圓點就是它的節奏骨架。先看點，再看字 ── 字會騙你，點不會。</p>
+  <div class="card">
+    <div class="legend" style="margin-bottom:18px">
+      <span><i class="lS"></i><b>● 重讀</b>　音長、音高、音量三者俱全</span>
+      <span><i class="lw"></i>· 輕讀　正常帶過，不特別強調</span>
+      <span><i class="lx"></i>○ 弱化吞音　母音塌成 /ə/，或整個音節消失</span>
+    </div>
+    <div class="score lg" id="legendScore" style="margin-bottom:14px"></div>
+    <p>上面這組只有兩個重讀點：FAR 與 -CERNED。中間的 as、I'm 全部塌陷成一團模糊的音。<strong>台灣學習者最常見的錯誤，是把每個字都唸得一樣清楚</strong> ── 那在英語耳朵裡聽起來不是「標準」，而是「每個字都在強調」，反而更難懂。</p>
+    <p>練的時候，先用手指在桌面敲出重讀點（這組敲兩下），讓節奏先進身體，再把字填進去。</p>
+  </div>
+
+  <h2 class="sec" style="margin-top:34px">六階段操練流程</h2>
+  <p class="sec-note">每一組語塊都走完這六步，再換下一組。前五步練語塊本身，第六步練它跟前後文的接縫。</p>
+  <div class="stages">
+    <div class="stage"><span class="sn">Stage 01</span><h4>聽輪廓</h4><p>閉上眼睛聽兩次，不要看文字。捕捉的是哪裡重、哪裡黏、哪裡吞掉，不是拼字。</p></div>
+    <div class="stage"><span class="sn">Stage 02</span><h4>慢速貼合</h4><p>用 0.55 倍速跟讀，刻意把連音的位置黏起來。這一步允許慢，但不允許斷。</p></div>
+    <div class="stage"><span class="sn">Stage 03</span><h4>常速影子</h4><p>與原音幾乎同時開口，追著跑。跟不上就退回 Stage 02，不要硬撐出錯誤節奏。</p></div>
+    <div class="stage"><span class="sn">Stage 04</span><h4>錄音對照</h4><p>錄下自己的版本，緊接著播原音。差異最常出現在「弱讀不夠弱」與「重音太平均」。</p></div>
+    <div class="stage"><span class="sn">Stage 05</span><h4>盲測產出</h4><p>只看中文與節奏點，三秒內脫口而出。出不來就代表還沒進肌肉，回到 Stage 03。</p></div>
+    <div class="stage"><span class="sn">Stage 06</span><h4>入句</h4><p>把語塊放回完整例句再唸一次。單獨唸得出來、擺進句子就崩掉，代表接縫還沒練順。</p></div>
+  </div>
+
+  <p class="quote">語塊不是背起來的，是唸壞掉之後留下來的。</p>
+
+  <div class="cols2" style="margin-top:24px">
+    <div class="card">
+      <h3>建議的四週節奏</h3>
+      <p><strong>第一週</strong>　每天一個場域（10 組），只做 Stage 01–03，求量不求準。</p>
+      <p><strong>第二週</strong>　回頭把前 50 組加上 Stage 04 錄音對照。</p>
+      <p><strong>第三週</strong>　全部 100 組跑 Stage 05 盲測，把三秒內出不來的挑出來重練。</p>
+      <p><strong>第四週</strong>　進「情境應用」與「產出測驗」，讓語塊在句子裡被喚起，而不是被單獨提取。</p>
+    </div>
+    <div class="card">
+      <h3>三個最常見的卡關</h3>
+      <p><strong>唸得出來，但講話時用不出來。</strong>缺的是情境連結，不是熟練度。去「情境應用」把整段對話跟讀三遍。</p>
+      <p><strong>聽得懂，但自己唸就是不像。</strong>通常是弱讀不夠弱。回到錄音對照，只比對 ○ 的位置有沒有真的塌下去。</p>
+      <p><strong>練完兩天就忘。</strong>間隔太長。本工具的抽卡會自動把練最少的那幾組往前推，每天開著跑三分鐘就好。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 語塊庫 ===== -->
+<section class="view" id="v-lib">
+  <h2 class="sec">語塊庫</h2>
+  <p class="sec-note">點「＋1 劃」記錄一次完整操練，五劃成「正」，卡片轉為金框。展開「連音與例句」可聽例句常速、慢速，或語塊接例句連播。</p>
+  <div class="toolbar" id="catBar"></div>
+  <div class="catnote" id="catNote"></div>
+  <div class="toolbar">
+    <input class="search" id="search" type="search" placeholder="搜尋英文、中文或連音關鍵字…" aria-label="搜尋語塊">
+    <button class="tiny-btn" id="onlyTodo">只看未練成</button>
+    <button class="tiny-btn" id="maskMode">遮字模式</button>
+    <button class="tiny-btn" id="shuffleLib">打散順序</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- ===== 刻意練習 ===== -->
+<section class="view" id="v-drill">
+  <h2 class="sec">刻意練習</h2>
+  <p class="sec-note">一次只面對一組，系統會自動把你練最少的那幾組往前推。依序按完六個階段，第五步請先說出口，再揭曉。</p>
+  <div class="toolbar" id="drillCatBar"></div>
+  <div class="drill-stage">
+    <div class="drill-cat" id="dCat">─</div>
+    <p class="drill-zh" id="dZh">準備中…</p>
+    <div class="score lg drill-score masked" id="dScore"></div>
+    <div class="countdown" id="dCount"></div>
+    <div class="drill-tip" id="dTip"></div>
+    <div class="drill-ex" id="dEx"><p class="de-en" id="dExEn"></p><p class="de-zh" id="dExZh"></p></div>
+    <div class="drill-ctrl">
+      <button class="btn ghost" data-stage="1">① 聽輪廓</button>
+      <button class="btn ghost" data-stage="2">② 慢速</button>
+      <button class="btn ghost" data-stage="3">③ 常速</button>
+      <button class="btn ghost" id="dRec">④ 錄音</button>
+      <button class="btn ghost" data-stage="5">⑤ 盲測</button>
+      <button class="btn ghost" data-stage="6">⑥ 入句</button>
+    </div>
+    <audio class="playback" id="dAudio" controls style="display:none;max-width:660px"></audio>
+    <div class="progressline"><i id="dBar"></i></div>
+    <div class="drill-ctrl">
+      <button class="btn warm" id="dReveal">揭曉答案</button>
+      <button class="btn" id="dNext">記一劃，下一組 →</button>
+      <button class="btn ghost" id="dSkip">跳過</button>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>盲測怎麼算過關</h3>
+    <p>看到中文與節奏點後，<strong>三秒內</strong>整組一口氣說完，中間沒有停頓、沒有更正、沒有先在心裡排過一次英文語序。三個條件缺一，就退回常速影子再跑五次。</p>
+  </div>
+</section>
+
+<!-- ===== 情境應用 ===== -->
+<section class="view" id="v-talk">
+  <h2 class="sec">情境應用</h2>
+  <p class="sec-note">語塊必須被情境喚起，而不是被清單提取。標色處為本工具收錄的語塊，少數已依句法自然變形。</p>
+  <div id="scenes"></div>
+</section>
+
+<!-- ===== 產出測驗 ===== -->
+<section class="view" id="v-quiz">
+  <h2 class="sec">產出測驗</h2>
+  <p class="sec-note">看中文，選出母語者實際會用的那一組。干擾項刻意取自同一場域，逼你分辨語氣差異而非語意差異。</p>
+  <div class="card" id="quizCard">
+    <div class="q-head"><span id="qPos">尚未開始</span><span id="qScore">答對 <b>0</b></span></div>
+    <p class="q-prompt" id="qPrompt">準備好了嗎？</p>
+    <p class="q-hint" id="qHint">建議先在「刻意練習」跑過至少一輪再來測</p>
+    <div class="opts" id="qOpts"></div>
+    <div class="q-feed" id="qFeed"></div>
+    <div class="drill-ctrl" style="margin-top:20px">
+      <button class="btn" id="qStart">開始測驗</button>
+      <button class="btn warm" id="qNext" style="display:none">下一題 →</button>
+    </div>
+  </div>
+  <div class="card" id="qResult" style="display:none">
+    <h3>本輪結果</h3>
+    <p id="qResultText"></p>
+    <div id="qWrongList"></div>
+    <div class="drill-ctrl" style="justify-content:flex-start;margin-top:14px">
+      <button class="btn" id="qAgain">再測一輪</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 訓練日誌 ===== -->
+<section class="view" id="v-log">
+  <h2 class="sec">訓練日誌</h2>
+  <p class="sec-note">紀錄存在這台裝置的瀏覽器裡，換裝置或清除瀏覽資料會歸零。</p>
+  <div class="bignum">
+    <div><b id="sDone">0</b><span>已練成 / 100</span></div>
+    <div><b id="sReps">0</b><span>累計劃數</span></div>
+    <div><b id="sTouched">0</b><span>已開練組數</span></div>
+    <div><b id="sQuiz">—</b><span>最佳測驗成績</span></div>
+  </div>
+  <div class="card">
+    <h3>各場域練成進度</h3>
+    <div class="bars" id="catBars"></div>
+  </div>
+  <div class="card">
+    <h3>尚未練成</h3>
+    <p class="sec-note" style="margin-bottom:12px">這些是下一輪該優先進「刻意練習」的組別，右側數字是目前劃數。</p>
+    <div id="todoList"></div>
+  </div>
+  <div class="drill-ctrl" style="justify-content:flex-start">
+    <button class="tiny-btn" id="resetAll">清除所有紀錄</button>
+  </div>
+</section>
+
+<footer>
+  <div class="couplet">溯源，塑局。<br>Retrace our ways; Reshape our days.</div>
+  <div>語塊節奏譜 · 100 High-Frequency English Chunks · 刻意練習互動學習單</div>
+</footer>
+
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+"use strict";
+
+var CATS = ["表達意見與想法","開啟與延續話題","請求與提問","回應與附和","澄清與解釋","狀況與行動","表達情緒","日常交際與禮貌","猶豫與爭取時間","總結與強調"];
+var CATS_EN = ["Opinions","Starters","Requests","Reactions","Clarifying","Actions","Emotions","Socializing","Stalling","Summarizing"];
+
+/* b = 節奏標記，與 en 的字數一一對應：S 重讀｜w 輕讀｜x 弱化吞音 */
+var DATA = [
+{n:1,c:0,en:"The way I see it,",b:"x S w S w",zh:"我認為／依我看",tip:"The way 三字併成一拍；see it 連音成 /ˈsiː‿ɪt/。重音只落在 WAY 與 SEE。",ex:"The way I see it, we have nothing to lose.",exz:"依我看，我們沒什麼好損失的。"},
+{n:2,c:0,en:"If you ask me,",b:"x x S w",zh:"如果你問我的話",tip:"If you 弱化為 /ɪf‿jə/；ask 的 /k/ 不爆破，直接滑進 me。",ex:"If you ask me, that price is way too high.",exz:"如果你問我，那價格太高了。"},
+{n:3,c:0,en:"As far as I'm concerned,",b:"x S x w S",zh:"就我而言",tip:"far as 連音成 /ˈfɑːr‿əz/；重音在 FAR 與 -CERNED，中間全部輕讀滑過。",ex:"As far as I'm concerned, the issue is settled.",exz:"就我而言，這件事已經解決了。"},
+{n:4,c:0,en:"To be completely honest,",b:"x w S S",zh:"老實說",tip:"To 弱化為 /tə/；completely honest 連音成 /kəmˈpliːtli‿ˈɑːnɪst/。",ex:"To be completely honest, I forgot all about it.",exz:"老實說，我完全忘了這件事。"},
+{n:5,c:0,en:"I highly doubt that.",b:"w S S w",zh:"我非常懷疑。",tip:"doubt 的 b 不發音；doubt that 兩個齒音合併成一個停頓，聽起來像 dou-that。",ex:"I highly doubt that he will show up on time.",exz:"我非常懷疑他會準時出現。"},
+{n:6,c:0,en:"I couldn't agree more.",b:"w w S S",zh:"我完全同意。",tip:"couldn't 的 t 變喉塞音；couldn't agree 連成 couldn-agree，句尾 more 拉長下降。",ex:"I couldn't agree more with your plan.",exz:"我完全同意你的計畫。"},
+{n:7,c:0,en:"That makes total sense.",b:"w w S S",zh:"那完全說得通。",tip:"total 的 t 美式閃音化，聽起來像 toh-dl；makes 的 /s/ 直接接上 total。",ex:"That makes total sense now that you explained it.",exz:"你一解釋，那就完全說得通了。"},
+{n:8,c:0,en:"I'm on the fence about it.",b:"w x x S x w",zh:"我還在猶豫。",tip:"on the 弱化為 /ɑn ðə/；about it 閃音連音成 abou-dit。",ex:"I'm on the fence about taking that job.",exz:"我還在猶豫要不要接那份工作。"},
+{n:9,c:0,en:"I have mixed feelings about...",b:"w w S S x",zh:"我對…感覺很複雜。",tip:"mixed feelings 的 /d/ 幾乎消失，唸成 mix-feelings；重音壓在 MIXED。",ex:"I have mixed feelings about moving abroad.",exz:"我對出國這件事感覺很複雜。"},
+{n:10,c:0,en:"Let's put it this way,",b:"w S x w S",zh:"這麼說吧，",tip:"put it 閃音成 pu-dit；this 的 th 輕觸即走，整組一拍唸完。",ex:"Let's put it this way, it could have been worse.",exz:"這麼說吧，情況本來可能更糟。"},
+
+{n:11,c:1,en:"Speaking of which,",b:"S x S",zh:"說到這個，",tip:"Speaking of 連音成 /ˈspiːkɪŋ‿əv/；which 短促收尾不拖。",ex:"Speaking of which, did you finish the report?",exz:"說到這個，你報告寫完了嗎？"},
+{n:12,c:1,en:"By the way,",b:"S x S",zh:"順帶一提，",tip:"the 弱化為 /ðə/；重音只落在 BY 與 WAY，中間輕輕帶過。",ex:"By the way, your package arrived this morning.",exz:"順帶一提，你的包裹今天早上到了。"},
+{n:13,c:1,en:"You know what I mean?",b:"x w S x S",zh:"你懂我的意思嗎？",tip:"口語常縮成 y'know whadda mean；what I 閃音成 wha-dai，句尾上揚。",ex:"It's just not the same, you know what I mean?",exz:"就是不太一樣，你懂我的意思嗎？"},
+{n:14,c:1,en:"Long story short,",b:"S w S",zh:"長話短說，",tip:"節奏是 DUM-da-DUM；story 的第二音節弱化到幾乎聽不見。",ex:"Long story short, we missed the flight.",exz:"長話短說，我們錯過班機了。"},
+{n:15,c:1,en:"To tell you the truth,",b:"x S x x S",zh:"說實話，",tip:"tell you 顎化成 /ˈtel‿jə/；the 弱化，重音壓在 TRUTH。",ex:"To tell you the truth, I've never tried it.",exz:"說實話，我從沒試過。"},
+{n:16,c:1,en:"At the end of the day,",b:"x x S x x S",zh:"歸根究底，",tip:"At the 弱化為 /ət ðə/；end of 連音成 en-dəv，整句像一個字滑出來。",ex:"At the end of the day, health matters most.",exz:"歸根究底，健康最重要。"},
+{n:17,c:1,en:"It goes without saying that...",b:"w S w S x",zh:"不用說也知道…",tip:"without 的 t 幾乎消失，直接接 saying；重音在 GOES 與 SAY-。",ex:"It goes without saying that safety comes first.",exz:"不用說也知道安全第一。"},
+{n:18,c:1,en:"Correct me if I'm wrong, but...",b:"S w x x S x",zh:"如果我錯了請糾正我，但…",tip:"if I'm 連成 /ɪf‿aɪm/；重音壓在 WRONG，but 之後短停半拍。",ex:"Correct me if I'm wrong, but this is due Friday.",exz:"如果我沒記錯，這週五要交。"},
+{n:19,c:1,en:"Let me get this straight,",b:"w x S w S",zh:"讓我弄清楚，",tip:"Let me 縮成 lemme；get this 的 t 省略成 ge-this。",ex:"Let me get this straight, you already paid?",exz:"讓我弄清楚，你已經付款了？"},
+{n:20,c:1,en:"As a matter of fact,",b:"x x S x S",zh:"事實上，",tip:"matter 閃音成 ma-der；of 弱化為 /əv/，整組唸作 azzə-madderəv-FACT。",ex:"As a matter of fact, I was just about to call you.",exz:"事實上，我正要打給你。"},
+
+{n:21,c:2,en:"Would you mind if I...?",b:"x x S w w",zh:"你介意我…嗎？",tip:"Would you 顎化成 /ˈwʊdʒə/；if I 連音，句尾語調上揚。",ex:"Would you mind if I opened the window?",exz:"你介意我開窗嗎？"},
+{n:22,c:2,en:"Do you happen to know...?",b:"x x S x S",zh:"你剛好知道…嗎？",tip:"Do you 縮成 /dʒə/；happen to 弱化成 happenə。",ex:"Do you happen to know when the store opens?",exz:"你剛好知道店幾點開嗎？"},
+{n:23,c:2,en:"Is there any chance you could...?",b:"w w w S x x",zh:"有可能請你…嗎？",tip:"chance you 顎化成 /ˈtʃæns‿jə/；could 弱化為 /kəd/。",ex:"Is there any chance you could send it today?",exz:"有可能請你今天寄出嗎？"},
+{n:24,c:2,en:"Could you do me a huge favor?",b:"x x w w x S S",zh:"你能幫我一個大忙嗎？",tip:"Could you 顎化 /ˈkʊdʒə/；do me a 滑成 doo-mee-yə，重音壓在 HUGE。",ex:"Could you do me a huge favor and watch my bag?",exz:"能幫我一個大忙看一下包包嗎？"},
+{n:25,c:2,en:"I was wondering if...",b:"w x S w",zh:"我想知道是否…",tip:"was 弱化為 /wəz/；wondering 閃音成 wun-dring。語速要慢，禮貌感來自慢。",ex:"I was wondering if you had time tomorrow.",exz:"我想問你明天有沒有空。"},
+{n:26,c:2,en:"Can I bounce some ideas off you?",b:"x w S x S w x",zh:"我可以跟你討論一些想法嗎？",tip:"Can 弱化為 /kən/；ideas off you 連成 idea-zaw-fyə。",ex:"Can I bounce some ideas off you before lunch?",exz:"午餐前可以跟你討論一些想法嗎？"},
+{n:27,c:2,en:"What's your take on...?",b:"S x S x",zh:"你對…有什麼看法？",tip:"What's your 顎化成 /ˈwʌtʃər/；take on 連音成 tay-kon。",ex:"What's your take on the new policy?",exz:"你對新政策有什麼看法？"},
+{n:28,c:2,en:"How does that sound to you?",b:"S x w S x w",zh:"你覺得聽起來如何？",tip:"does that 的 /d/ 省略成 duh-zat；to you 弱化為 /tə jə/。",ex:"We meet at six. How does that sound to you?",exz:"我們六點見，你覺得如何？"},
+{n:29,c:2,en:"Are we on the same page?",b:"x w x x S S",zh:"我們達成共識了嗎？",tip:"on the 弱化到幾乎不見；重音只在 SAME 與 PAGE。",ex:"Before we start, are we on the same page?",exz:"開始前，我們有共識嗎？"},
+{n:30,c:2,en:"What are you up to these days?",b:"S x x S x w S",zh:"你最近在忙什麼？",tip:"What are you 口語縮成 whaddaya；up to 弱化為 up-tə。",ex:"Hey, what are you up to these days?",exz:"嘿，你最近在忙什麼？"},
+
+{n:31,c:3,en:"That's a good point.",b:"w x S S",zh:"說得好／有道理。",tip:"That's a 連音 /ˈðæts‿ə/；good 的 d 不爆破，直接接 point。",ex:"That's a good point. I hadn't thought of that.",exz:"有道理，我沒想到這點。"},
+{n:32,c:3,en:"Fair enough.",b:"S S",zh:"很合理／好吧。",tip:"兩字連成一個字 /fer‿ɪˈnʌf/，聽起來像 fai-RENOUGH。",ex:"Fair enough, we'll do it your way.",exz:"好吧，就照你的方式做。"},
+{n:33,c:3,en:"Tell me about it!",b:"S w x S",zh:"可不是嗎！",tip:"about it 閃音成 abou-dit；語調先高後降，帶感嘆而非疑問。",ex:"Traffic was awful. — Tell me about it!",exz:"塞車超慘。──可不是嗎！"},
+{n:34,c:3,en:"You can say that again.",b:"w x S w S",zh:"你說得對極了。",tip:"can 弱化為 /kən/；that again 閃音連音成 tha-dagain。",ex:"This coffee is amazing. — You can say that again.",exz:"這咖啡太棒了。──說得太對了。"},
+{n:35,c:3,en:"It is what it is.",b:"w x S w S",zh:"事情就是這樣。",tip:"兩組 it is 都連音成 i-diz，整句唸作 i-diz wha-di-diz。",ex:"We can't change it now. It is what it is.",exz:"現在也改不了，事情就是這樣。"},
+{n:36,c:3,en:"Better late than never.",b:"S S x S",zh:"遲做總比不做好。",tip:"Better 閃音成 be-der；than 弱化為 /ðən/，重音在 LATE 與 NEV-。",ex:"You finally came. Better late than never.",exz:"你終於來了，遲到總比不到好。"},
+{n:37,c:3,en:"No worries at all.",b:"w S x S",zh:"完全沒問題。",tip:"worries at all 連音成 worrie-za-dall；語調輕鬆下降，不要上揚。",ex:"Sorry I'm late. — No worries at all.",exz:"抱歉遲到了。──完全沒關係。"},
+{n:38,c:3,en:"It doesn't make any difference.",b:"w w S w S",zh:"那沒有任何差別。",tip:"make any 連音成 may-keny；doesn't 的 t 幾乎不發音。",ex:"Red or blue, it doesn't make any difference.",exz:"紅的藍的都沒差。"},
+{n:39,c:3,en:"That's exactly what I was thinking.",b:"w S w x x S",zh:"我心裡也是這麼想的。",tip:"what I was 弱化成 wha-dai-wəz；重音壓在 -ZACT- 與 THINK-。",ex:"That's exactly what I was thinking.",exz:"我也正是這麼想的。"},
+{n:40,c:3,en:"I see where you're coming from.",b:"w S S x S x",zh:"我了解你的立場。",tip:"where you're 縮成 /ˈwer‿jər/；from 弱化為 /frəm/。",ex:"I see where you're coming from, but I disagree.",exz:"我了解你的想法，但我不同意。"},
+
+{n:41,c:4,en:"What I meant to say was...",b:"S x S x S x",zh:"我原本的意思是…",tip:"What I 閃音成 wha-dai；meant to 兩個 t 合併成 men-tə。",ex:"What I meant to say was, it needs more time.",exz:"我原本的意思是，這需要更多時間。"},
+{n:42,c:4,en:"In other words,",b:"x S S",zh:"換句話說，",tip:"In other 連音成 i-NUH-ther；words 的 d 輕輕帶過不重踩。",ex:"In other words, we start over.",exz:"換句話說，我們要重來。"},
+{n:43,c:4,en:"Let me put it another way,",b:"w x S x w S",zh:"讓我換個方式說，",tip:"Let me 縮成 lemme；put it another 連成 pu-di-də-NUH-ther。",ex:"Let me put it another way, it's not worth it.",exz:"換個方式說，這不值得。"},
+{n:44,c:4,en:"That's not exactly what I meant.",b:"w w S w x S",zh:"那不完全是我的意思。",tip:"not exactly 閃音成 no-degZACTly；語氣要柔，重音別壓在 NOT。",ex:"That's not exactly what I meant, sorry.",exz:"抱歉，那不完全是我的意思。"},
+{n:45,c:4,en:"To make a long story short,",b:"x w x S w S",zh:"長話短說，",tip:"make a 連音 /ˈmeɪk‿ə/；前半快速帶過，重音留給 SHORT。",ex:"To make a long story short, we got lost.",exz:"長話短說，我們迷路了。"},
+{n:46,c:4,en:"The bottom line is...",b:"x S S x",zh:"最重要的是…",tip:"bottom 閃音成 bah-dm；line is 連音成 lie-niz。",ex:"The bottom line is we need more money.",exz:"重點是我們需要更多錢。"},
+{n:47,c:4,en:"For what it's worth,",b:"x S x S",zh:"僅供參考，",tip:"what it's 閃音成 wha-dits；整組快速輕讀，是典型的鋪墊語塊。",ex:"For what it's worth, I think you did great.",exz:"僅供參考，我覺得你做得很好。"},
+{n:48,c:4,en:"That being said,",b:"w x S",zh:"話雖如此，",tip:"being 弱化成一拍；said 之後必須停頓，轉折才聽得出來。",ex:"It's expensive. That being said, it lasts.",exz:"它很貴，話雖如此，很耐用。"},
+{n:49,c:4,en:"Just to be clear,",b:"w x x S",zh:"先說清楚，",tip:"Just to 的 t 合併成 jus-tə；重音落在 CLEAR。",ex:"Just to be clear, this is the final version.",exz:"先說清楚，這是最終版。"},
+{n:50,c:4,en:"I'm just playing devil's advocate here.",b:"w w S S S w",zh:"我只是故意唱反調。",tip:"devil's advocate 連音成 devil-ZAD-vəkət；here 輕收不重讀。",ex:"I'm just playing devil's advocate here, but what if it fails?",exz:"我只是唱個反調，但萬一失敗呢？"},
+
+{n:51,c:5,en:"I'll look into it.",b:"w S x w",zh:"我會了解一下。",tip:"look into it 連成 loo-KIN-tu-wit，三個字滑成一串。",ex:"Thanks for telling me. I'll look into it.",exz:"謝謝告知，我會了解一下。"},
+{n:52,c:5,en:"Let's call it a day.",b:"w S x x S",zh:"今天就到此為止吧。",tip:"call it a 閃音連音成 caw-li-də。",ex:"We're all tired. Let's call it a day.",exz:"大家都累了，今天就到這吧。"},
+{n:53,c:5,en:"Keep me in the loop.",b:"S w x x S",zh:"有消息隨時讓我知道。",tip:"Keep 的 p 不爆破；in the 弱化，重音只在 KEEP 與 LOOP。",ex:"Keep me in the loop on the budget.",exz:"預算的事隨時讓我知道。"},
+{n:54,c:5,en:"I'm looking forward to...",b:"w S S x",zh:"我期待著…",tip:"to 弱化為 /tə/ 而非 /tuː/；後面接動名詞，不是原形動詞。",ex:"I'm looking forward to seeing you again.",exz:"我期待再見到你。"},
+{n:55,c:5,en:"I'll get right on it.",b:"w S S x w",zh:"我馬上就去辦。",tip:"right on it 閃音連音成 righ-DAW-nit。",ex:"Sure, I'll get right on it.",exz:"好的，我馬上去辦。"},
+{n:56,c:5,en:"Bear with me for a second.",b:"S x w x x S",zh:"請稍等我一下。",tip:"with me 的 /ð/ 幾乎省略；for a 弱化為 /fərə/。",ex:"Bear with me for a second while I find it.",exz:"我找一下，請稍等。"},
+{n:57,c:5,en:"Let's cross that bridge when we come to it.",b:"w S w S w w S x w",zh:"到時候再說吧。",tip:"分兩拍：cross that BRIDGE ｜ when we come TO it，中間換氣。",ex:"We might need visas. — Let's cross that bridge when we come to it.",exz:"我們可能需要簽證。──到時候再說。"},
+{n:58,c:5,en:"We are running out of time.",b:"w x S S x S",zh:"我們快沒時間了。",tip:"running out of 連音成 runnin-OU-dəv。",ex:"Hurry up, we are running out of time.",exz:"快點，我們快沒時間了。"},
+{n:59,c:5,en:"I've got a lot on my plate right now.",b:"w w x S x x S w S",zh:"我現在手頭一堆事。",tip:"got a lot on 全部閃音連音成 go-də-LO-don。",ex:"Can it wait? I've got a lot on my plate right now.",exz:"可以晚點嗎？我現在事情一堆。"},
+{n:60,c:5,en:"Take your time.",b:"S x S",zh:"慢慢來。",tip:"Take your 顎化成 /ˈteɪk‿jər/；語速要放慢，安撫感來自速度。",ex:"No rush at all, take your time.",exz:"完全不急，慢慢來。"},
+
+{n:61,c:6,en:"I'm so sick and tired of...",b:"w w S x S x",zh:"我對…感到非常厭倦。",tip:"sick and 弱化成 sick-n；of 弱化為 /əv/，重音在 SICK 與 TIRED。",ex:"I'm so sick and tired of these delays.",exz:"我對這些延誤真的受夠了。"},
+{n:62,c:6,en:"I couldn't care less.",b:"w w S S",zh:"我一點也不在乎。",tip:"couldn't 的 t 變喉塞音；重音重重壓在 LESS。",ex:"What he thinks? I couldn't care less.",exz:"他怎麼想？我一點也不在乎。"},
+{n:63,c:6,en:"It drives me crazy when...",b:"w S w S w",zh:"當…的時候快把我逼瘋了。",tip:"drives me 的 /z/ 帶進 me；crazy 拉長以承載情緒。",ex:"It drives me crazy when people are late.",exz:"有人遲到真的快把我逼瘋。"},
+{n:64,c:6,en:"I'm thrilled to pieces!",b:"w S x S",zh:"我高興極了！",tip:"thr- 舌尖輕觸不碰齒齦；thrilled to 的 d 併入 t，整句語調上揚。",ex:"I got in! I'm thrilled to pieces!",exz:"我錄取了！我高興極了！"},
+{n:65,c:6,en:"It slipped my mind.",b:"w S x S",zh:"我忘了。",tip:"slipped my 的 t 省略，唸成 slipp-my。",ex:"Sorry, it completely slipped my mind.",exz:"抱歉，我完全忘了。"},
+{n:66,c:6,en:"I'm totally lost.",b:"w S S",zh:"我完全搞不懂。",tip:"totally 閃音成 TOH-də-lee；lost 重讀下降。",ex:"Can you repeat that? I'm totally lost.",exz:"可以再說一次嗎？我完全聽不懂。"},
+{n:67,c:6,en:"That's a relief.",b:"w x S",zh:"那真是鬆了一口氣。",tip:"That's a 連音 /ˈðæts‿ə/；重音在 -LIEF，語調鬆弛下降。",ex:"The test was negative. That's a relief.",exz:"檢查是陰性，真是鬆了口氣。"},
+{n:68,c:6,en:"I'm fed up with...",b:"w S S x",zh:"我受夠了…",tip:"fed up 連音成 feh-DUP；with 弱化輕讀，不重踩。",ex:"I'm fed up with the noise upstairs.",exz:"我受夠樓上的噪音了。"},
+{n:69,c:6,en:"It blows my mind.",b:"w S x S",zh:"這讓我難以置信。",tip:"blows my 的 /z/ 滑進 my；mind 拉長，帶驚嘆語氣。",ex:"The scale of it blows my mind.",exz:"那規模讓我難以置信。"},
+{n:70,c:6,en:"I'm feeling under the weather.",b:"w S S x S",zh:"我不太舒服。",tip:"under the 連音成 UN-der-thə；語調要低、要慢，才像真的不舒服。",ex:"I'll skip dinner. I'm feeling under the weather.",exz:"我不吃晚餐了，有點不舒服。"},
+
+{n:71,c:7,en:"It was lovely catching up with you.",b:"w x S S w x x",zh:"能跟你敘舊真好。",tip:"catching up 連音成 catchin-GUP；with you 弱化為 /wɪð‿jə/。",ex:"It was lovely catching up with you today.",exz:"今天能跟你敘舊真好。"},
+{n:72,c:7,en:"Please pass on my regards to...",b:"w S w x S x",zh:"請代我問候…",tip:"pass on 連音成 pa-SON；to 弱化為 /tə/。",ex:"Please pass on my regards to your parents.",exz:"請代我問候你父母。"},
+{n:73,c:7,en:"Sorry to bother you, but...",b:"S x S x x",zh:"抱歉打擾你，但…",tip:"bother you 顎化成 /ˈbɑðər‿jə/；語調要輕要短，拖長反而失禮。",ex:"Sorry to bother you, but do you have a minute?",exz:"抱歉打擾，你有空嗎？"},
+{n:74,c:7,en:"I appreciate your help.",b:"w S x S",zh:"感謝你的幫忙。",tip:"I appreciate 連音成 ai-yəPREE-shee-ate；your 弱化為 /jər/。",ex:"I really appreciate your help with this.",exz:"這件事真的很感謝你的幫忙。"},
+{n:75,c:7,en:"Don't hesitate to contact me if...",b:"w S x S w x",zh:"如果…請不要猶豫聯絡我。",tip:"Don't 的 t 省略成 don-hesitate；to 弱化為 /tə/。",ex:"Don't hesitate to contact me if anything comes up.",exz:"有任何狀況請隨時聯絡我。"},
+{n:76,c:7,en:"Make yourself at home.",b:"S w x S",zh:"當自己家一樣。",tip:"yourself at 連音成 yourseh-LAT；home 溫和下降不重踩。",ex:"Come in, make yourself at home.",exz:"進來吧，當自己家一樣。"},
+{n:77,c:7,en:"Sorry for the late notice.",b:"S x x S S",zh:"抱歉這麼晚才通知。",tip:"for the 弱化為 /fərðə/；late notice 的 t 閃音成 lay-NOH-dis。",ex:"Sorry for the late notice, but the meeting moved.",exz:"抱歉這麼晚通知，會議改時間了。"},
+{n:78,c:7,en:"Thank you for having me.",b:"S x x S w",zh:"謝謝你的招待。",tip:"Thank you 顎化成 /ˈθæŋk‿jə/；for 弱化為 /fər/。",ex:"Dinner was wonderful. Thank you for having me.",exz:"晚餐很棒，謝謝你的招待。"},
+{n:79,c:7,en:"It's a pleasure to meet you.",b:"w x S x S x",zh:"很高興認識你。",tip:"meet you 顎化成 /ˈmiːtʃə/；重音在 PLEA- 與 MEET。",ex:"It's a pleasure to meet you in person.",exz:"很高興能親自見到你。"},
+{n:80,c:7,en:"Have a good one!",b:"w x S S",zh:"祝你有美好的一天！",tip:"Have a 連音 /ˈhæv‿ə/；good one 連成 goo-WUN。",ex:"Thanks, see you. Have a good one!",exz:"謝啦，再見，祝你有美好的一天！"},
+
+{n:81,c:8,en:"Well, let me see...",b:"S w x S",zh:"嗯，讓我想想…",tip:"let me 縮成 lemme；see 拉長且聲調懸空，代表話還沒說完。",ex:"Well, let me see... maybe Thursday?",exz:"嗯，讓我想想…也許星期四？"},
+{n:82,c:8,en:"That's a tough question.",b:"w x S S",zh:"這真是個難題。",tip:"tough 的 /f/ 緊接 question 的 /kw/；重音壓在 TOUGH。",ex:"That's a tough question. Give me a moment.",exz:"這問題真難，讓我想一下。"},
+{n:83,c:8,en:"Give me a second to think about it.",b:"S x x S x S x w",zh:"給我一秒想一下。",tip:"Give me 縮成 gimme；about it 閃音成 abou-dit。",ex:"Give me a second to think about it, okay?",exz:"給我一下想想，好嗎？"},
+{n:84,c:8,en:"How should I put this...",b:"S x w S w",zh:"我該怎麼說呢…",tip:"should I 連音成 /ˈʃʊd‿aɪ/；put this 的 t 省略，尾音懸空。",ex:"How should I put this... it didn't go well.",exz:"我該怎麼說呢…結果不太好。"},
+{n:85,c:8,en:"It's on the tip of my tongue.",b:"w x x S x x S",zh:"我話到嘴邊卻想不起來。",tip:"tip of 連音成 TI-pəv；my 弱化，tongue 收在鼻音。",ex:"His name is on the tip of my tongue.",exz:"他的名字就在我嘴邊卻想不起來。"},
+{n:86,c:8,en:"I haven't really thought about it, but...",b:"w w S S x w x",zh:"我沒認真想過，但…",tip:"thought about it 連成 thaw-də-BOU-dit。",ex:"I haven't really thought about it, but sure.",exz:"我沒認真想過，但好啊。"},
+{n:87,c:8,en:"Off the top of my head,",b:"w x S x x S",zh:"憑第一印象想到的是，",tip:"top of my 連成 TAH-pəv-mə；整組語速偏快，才有隨口說的感覺。",ex:"Off the top of my head, about twenty people.",exz:"我第一時間想到大概二十人。"},
+{n:88,c:8,en:"Now that you mention it,",b:"S x x S w",zh:"既然你提到了，",tip:"that you 顎化成 /ˈðætʃə/；mention it 連音收尾。",ex:"Now that you mention it, I did hear something.",exz:"既然你提到，我確實聽說了些事。"},
+{n:89,c:8,en:"I'm trying to wrap my head around this.",b:"w S x S x S w w",zh:"我正努力理解這件事。",tip:"trying to 口語縮成 tryna；head around 連音成 hea-də-ROUND。",ex:"Give me a minute, I'm trying to wrap my head around this.",exz:"等我一下，我正努力搞懂這件事。"},
+{n:90,c:8,en:"Let me double-check that.",b:"w x S w",zh:"讓我再確認一下。",tip:"Let me 縮成 lemme；that 的 t 省略成喉塞音收尾。",ex:"Let me double-check that before I confirm.",exz:"我確認前再核對一下。"},
+
+{n:91,c:9,en:"First and foremost,",b:"S x S",zh:"首先，最重要的是，",tip:"and 弱化為 /ən/，整組唸成 firs-tn-FORE-most。",ex:"First and foremost, thank you all for coming.",exz:"首先，謝謝各位前來。"},
+{n:92,c:9,en:"Last but not least,",b:"S x w S",zh:"最後但同樣重要的是，",tip:"but not 的 t 省略成 bə-no；重音在 LAST 與 LEAST。",ex:"Last but not least, I want to thank my team.",exz:"最後但同樣重要的，我要感謝我的團隊。"},
+{n:93,c:9,en:"More often than not,",b:"S w x S",zh:"通常／多半，",tip:"than 弱化為 /ðən/；重音對比落在 MORE 與 NOT。",ex:"More often than not, he shows up early.",exz:"他多半都會早到。"},
+{n:94,c:9,en:"Without a shadow of a doubt,",b:"w x S x x S",zh:"毫無疑問，",tip:"shadow of a 連成 SHA-dō-wə-və；doubt 的 b 不發音。",ex:"Without a shadow of a doubt, she is the best.",exz:"毫無疑問，她是最棒的。"},
+{n:95,c:9,en:"On top of that,",b:"x S x S",zh:"除此之外，",tip:"top of that 連音成 TAH-pəv-that。",ex:"On top of that, the price went up.",exz:"除此之外，價格還漲了。"},
+{n:96,c:9,en:"In the long run,",b:"x x S S",zh:"從長遠來看，",tip:"In the 弱化為 /ɪnðə/；重音在 LONG 與 RUN。",ex:"In the long run, it will save you money.",exz:"從長遠看，這會幫你省錢。"},
+{n:97,c:9,en:"When all is said and done,",b:"w S x S x S",zh:"說到底，",tip:"all is 連音成 AW-liz；said and 弱化成 SED-n。",ex:"When all is said and done, we did our best.",exz:"說到底，我們盡力了。"},
+{n:98,c:9,en:"To put it mildly,",b:"x S x S",zh:"委婉地說，",tip:"put it 閃音成 PU-dit；mildly 的 d 輕輕帶過。",ex:"To put it mildly, the meeting was a disaster.",exz:"委婉地說，那場會議是場災難。"},
+{n:99,c:9,en:"It goes to show that...",b:"w S x S x",zh:"這證明了…",tip:"goes to 弱化為 /ˈgoʊz tə/；重音壓在 SHOW。",ex:"It goes to show that hard work pays off.",exz:"這證明了努力會有回報。"},
+{n:100,c:9,en:"Actions speak louder than words.",b:"S w S x S",zh:"坐而言不如起而行。",tip:"than 弱化為 /ðən/；三個重音 AC-tions、LOUD-er、WORDS，中間全部滑過。",ex:"Don't just promise. Actions speak louder than words.",exz:"別只是承諾，坐而言不如起而行。"}
+];
+
+var SCENES = [
+{t:"辦公室 · 交辦與追進度",w:"A = 主管　B = 同事",lines:[
+ ["A","**Sorry to bother you, but** do you have a second?","抱歉打擾，你有空一下嗎？"],
+ ["B","Sure. **What are you up to these days?**","當然。你最近在忙什麼？"],
+ ["A","**I've got a lot on my plate right now.** **Long story short,** the client moved the deadline.","我現在手頭一堆事。長話短說，客戶把死線提前了。"],
+ ["B","**You can say that again.** So when is it due?","可不是嗎。那什麼時候要交？"],
+ ["A","Friday. **Is there any chance you could** take the data section?","週五。有可能請你接手數據那段嗎？"],
+ ["B","**Let me get this straight,** just the charts?","讓我弄清楚，只有圖表嗎？"],
+ ["A","Charts and the summary. **How does that sound to you?**","圖表加摘要。你覺得如何？"],
+ ["B","**Fair enough.** **I'll get right on it.** **Keep me in the loop** if anything changes.","好吧，我馬上去辦。有變動隨時讓我知道。"],
+ ["A","Will do. **I appreciate your help.**","沒問題。感謝你的幫忙。"]
+]},
+{t:"朋友閒聊 · 抱怨與同理",w:"A、B = 老朋友",lines:[
+ ["A","**It was lovely catching up with you.** How's the new place?","能跟你敘舊真好。新家怎麼樣？"],
+ ["B","**I have mixed feelings about** it. The rent **drives me crazy**.","我感覺很複雜。房租快把我逼瘋。"],
+ ["A","**Tell me about it!** Everything went up this year.","可不是嗎！今年什麼都漲。"],
+ ["B","**At the end of the day,** the commute is shorter. **It is what it is.**","歸根究底，通勤變短了。事情就是這樣。"],
+ ["A","**That's a good point.** **In the long run,** you save two hours a day.","有道理。長遠來看，你一天省兩小時。"],
+ ["B","**That's exactly what I was thinking.** **By the way,** are you free Sunday?","我也正是這麼想的。順帶一提，你週日有空嗎？"],
+ ["A","**Off the top of my head,** yes. **Let me double-check that.**","我第一時間想到是有空。讓我再確認一下。"],
+ ["B","**Take your time.** **Have a good one!**","慢慢來。祝你有美好的一天！"]
+]},
+{t:"會議 · 表達不同意見",w:"A、B = 專案成員",lines:[
+ ["A","**What's your take on** launching in March?","你對三月上線有什麼看法？"],
+ ["B","**To be completely honest,** **I highly doubt that** we'll be ready.","老實說，我非常懷疑我們會準備好。"],
+ ["A","**I see where you're coming from.** **That being said,** the budget expires in April.","我了解你的立場。話雖如此，預算四月就到期。"],
+ ["B","**Correct me if I'm wrong, but** testing alone takes six weeks.","如果我沒記錯，光測試就要六週。"],
+ ["A","**That makes total sense.** **Let me put it another way,** what if we launch partially?","那完全說得通。換個方式說，如果我們分階段上線呢？"],
+ ["B","Hmm. **I'm on the fence about it.** **I'm just playing devil's advocate here,** but users hate half-finished tools.","嗯，我還在猶豫。我只是唱個反調，但使用者討厭半成品。"],
+ ["A","**Fair enough.** **The bottom line is** we need a date this week.","好吧。重點是我們這週要定出日期。"],
+ ["B","**Let's cross that bridge when we come to it.** **Are we on the same page** on scope first?","到時候再說吧。我們先對範圍有共識了嗎？"],
+ ["A","**I couldn't agree more.**","我完全同意。"]
+]},
+{t:"求助與致謝 · 鄰居／同事",w:"A = 求助者　B = 幫忙者",lines:[
+ ["A","**Could you do me a huge favor?**","你能幫我一個大忙嗎？"],
+ ["B","**Do you happen to know** what you need? Just ask.","你知道需要什麼嗎？儘管說。"],
+ ["A","**Would you mind if I** left my parcel at your place?","你介意我把包裹放你那邊嗎？"],
+ ["B","**No worries at all.** **Make yourself at home** when you pick it up.","完全沒問題。你來拿的時候別客氣。"],
+ ["A","**Sorry for the late notice.** **It slipped my mind** until this morning.","抱歉這麼晚才說，我到今天早上才想起來。"],
+ ["B","**Better late than never.** **Don't hesitate to contact me if** anything comes up.","遲說總比不說好。有事別客氣，隨時聯絡我。"],
+ ["A","**That's a relief.** **I appreciate your help.**","真是鬆了一口氣。感謝你的幫忙。"],
+ ["B","**It's a pleasure to meet you** properly, by the way. **Please pass on my regards to** your wife.","順帶一提，很高興正式認識你。請代我問候你太太。"]
+]},
+{t:"被問到難題 · 爭取思考時間",w:"A = 提問者　B = 回答者",lines:[
+ ["A","**I was wondering if** you could explain the new system.","我想問你能不能解釋一下新系統。"],
+ ["B","**That's a tough question.** **Well, let me see...**","這真是個難題。嗯，讓我想想…"],
+ ["A","**Take your time.**","慢慢來。"],
+ ["B","**How should I put this...** **I'm trying to wrap my head around this** myself.","我該怎麼說呢…我自己也還在努力理解。"],
+ ["A","**Fair enough.** **Just to be clear,** you did read the manual?","好吧。先說清楚，你有看過手冊嗎？"],
+ ["B","**I haven't really thought about it, but...** **now that you mention it,** there was a section on permissions.","我沒認真想過，但既然你提到，裡面有一段在講權限。"],
+ ["A","**Speaking of which,** who approves access?","說到這個，誰核准權限？"],
+ ["B","It's **on the tip of my tongue**. **Give me a second to think about it.**","我話到嘴邊卻想不起來。給我一秒想一下。"],
+ ["B","**I'll look into it** and get back to you. **For what it's worth,** the docs are outdated.","我會了解一下再回覆你。僅供參考，那份文件過期了。"],
+ ["A","**It goes without saying that** we should update them. **Actions speak louder than words.**","不用說也知道該更新了。坐而言不如起而行。"]
+]}
+];
+</script>
+<script>
+"use strict";
+
+/* 場域導引：選到該場域時顯示一句用法提醒 */
+var CAT_NOTE = [
+"這九組加一組是英語對話的「免責聲明」。重點不在意見本身，而在它前面那層緩衝 ── 少了緩衝，同樣的話在英語耳朵裡會重得多。",
+"話題的接縫。母語者很少硬轉話題，而是先丟一個語塊當橋。練熟這十組，你的對話就不會只剩問答。",
+"請求的強度由句子長度決定：越長越客氣。Would you mind if I 比 Can I 長得多，不是因為資訊多，而是因為繞得多。",
+"回應不是點頭，是接球。這十組讓對方知道你聽懂了哪一層 ── 是同意、是理解、還是只是收到。",
+"澄清不是道歉。That's not exactly what I meant 的重音若壓在 NOT，會變成指責；壓在 EXACTLY，才是修正。",
+"行動語塊幾乎都是整組固定搭配，拆開換字就不自然。I'll look into it 不能說成 I'll look inside it。",
+"情緒語塊的關鍵是語調而非字面。I couldn't care less 唸得平，是冷淡；唸得重，是生氣。",
+"社交語塊是潤滑劑，講得越順越不引人注意 ── 那正是目的。一旦唸得結巴，禮貌反而變成尷尬。",
+"卡住時沉默三秒，對方會以為你不會。這十組讓你在想事情的同時把麥克風握著，是口說考試的保命招。",
+"收尾語塊負責告訴聽者「結論來了」。少了它，再好的內容也像講到一半被切掉。"
+];
+
+/* ============ 儲存 ============ */
+var KEY = "chunks100_v2";
+var OLDKEY = "chunks100_v1";
+var store = { reps:{}, quizBest:null };
+
+function load(){
+  try{
+    var raw = localStorage.getItem(KEY) || localStorage.getItem(OLDKEY);
+    if(raw){
+      var o = JSON.parse(raw);
+      if(o && typeof o === "object"){
+        store.reps = (o.reps && typeof o.reps === "object") ? o.reps : {};
+        store.quizBest = (typeof o.quizBest === "number") ? o.quizBest : null;
+      }
+    }
+  }catch(e){ store = { reps:{}, quizBest:null }; }
+}
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){}
+}
+function repsOf(n){ return store.reps[n] || 0; }
+function addRep(n){ store.reps[n] = repsOf(n) + 1; save(); refreshStats(); }
+load();
+
+/* ============ 小工具 ============ */
+function $(id){ return document.getElementById(id); }
+var toastTimer = null;
+function toast(msg){
+  var t = $("toast");
+  t.textContent = msg; t.classList.add("on");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove("on"); }, 2300);
+}
+function shuffle(a){
+  var arr = a.slice();
+  for(var i = arr.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+  }
+  return arr;
+}
+function pad3(n){ return ("00" + n).slice(-3); }
+
+/* ---- 節奏譜 ---- */
+function scoreHTML(d){
+  var words = d.en.split(/\s+/);
+  var beats = (d.b || "").split(/\s+/);
+  return words.map(function(w, i){
+    var k = beats[i] || "w";
+    if(k !== "S" && k !== "x") k = "w";
+    return '<span class="beat ' + k + '"><i></i><em>' + w + "</em></span>";
+  }).join("");
+}
+
+/* ---- 正字計數 ---- */
+/* 「正」字標準筆順（教育部 一丨一丨一）：
+   ① 上橫　② 中央長豎，貫穿到底　③ 中橫，自長豎向右
+   ④ 左短豎，自中段到底　⑤ 下橫，最長 */
+var TALLY = [
+  "M6,6.5 H18.5",
+  "M11.6,6.5 V21",
+  "M11.6,13.5 H18",
+  "M6,13.5 V21",
+  "M2.5,21 H21.5"
+];
+function tallyHTML(reps){
+  var shown = reps >= 5 ? 5 : reps, p = "";
+  for(var i = 0; i < 5; i++){
+    p += '<path d="' + TALLY[i] + '"' + (i < shown ? ' class="hit"' : "") + "></path>";
+  }
+  var extra = reps >= 10 ? '<span style="font-family:var(--mono);font-size:10.5px;color:var(--muted)">×' + Math.floor(reps / 5) + "</span>" : "";
+  return '<span class="tally' + (reps >= 5 ? " full" : "") + '" title="已操練 ' + reps + ' 次"><svg viewBox="0 0 24 24" aria-hidden="true">' + p + "</svg>" + extra + "</span>";
+}
+
+/* ============ 語音合成 ============ */
+var voices = [], warmed = false;
+function loadVoices(){
+  try{ voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : []; }
+  catch(e){ voices = []; }
+}
+if(window.speechSynthesis){
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+  setTimeout(loadVoices, 400);
+  setTimeout(loadVoices, 1200);
+}
+function pickVoice(){
+  if(!voices.length) return null;
+  var pref = ["Samantha","Google US English","Microsoft Aria","Microsoft Jenny","Alex","Karen","Daniel"];
+  for(var i = 0; i < pref.length; i++){
+    for(var j = 0; j < voices.length; j++){
+      if(voices[j].name && voices[j].name.indexOf(pref[i]) !== -1) return voices[j];
+    }
+  }
+  for(var k = 0; k < voices.length; k++){ if(/^en[-_]US/i.test(voices[k].lang)) return voices[k]; }
+  for(var m = 0; m < voices.length; m++){ if(/^en/i.test(voices[m].lang)) return voices[m]; }
+  return null;
+}
+/* Chrome 首次呼叫常吞掉第一句：先送一個靜音 utterance 暖機 */
+function warmUp(){
+  if(warmed || !window.speechSynthesis) return;
+  try{
+    var u = new SpeechSynthesisUtterance(" ");
+    u.volume = 0; u.rate = 1;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+  warmed = true;
+}
+function speak(text, rate){
+  if(!window.speechSynthesis || typeof SpeechSynthesisUtterance === "undefined"){
+    toast("這個瀏覽器不支援語音朗讀，建議改用 Chrome 或 Safari");
+    return;
+  }
+  warmUp();
+  try{ window.speechSynthesis.cancel(); }catch(e){}
+  setTimeout(function(){
+    try{
+      if(!voices.length) loadVoices();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = rate || 0.95; u.pitch = 1;
+      var v = pickVoice(); if(v) u.voice = v;
+      window.speechSynthesis.speak(u);
+    }catch(e){ toast("朗讀失敗，請再試一次"); }
+  }, 70);
+}
+/* 依序朗讀多句：語塊 → 例句，中間留一拍 */
+function speakSeq(list, rate){
+  if(!window.speechSynthesis || typeof SpeechSynthesisUtterance === "undefined"){
+    toast("這個瀏覽器不支援語音朗讀，建議改用 Chrome 或 Safari");
+    return;
+  }
+  warmUp();
+  try{ window.speechSynthesis.cancel(); }catch(e){}
+  setTimeout(function(){
+    if(!voices.length) loadVoices();
+    var v = pickVoice();
+    list.forEach(function(text, i){
+      try{
+        if(i > 0){
+          var gap = new SpeechSynthesisUtterance(" ");
+          gap.volume = 0; gap.rate = 0.4;
+          window.speechSynthesis.speak(gap);
+        }
+        var u = new SpeechSynthesisUtterance(text);
+        u.lang = "en-US"; u.rate = rate || 0.9;
+        if(v) u.voice = v;
+        window.speechSynthesis.speak(u);
+      }catch(e){}
+    });
+  }, 70);
+}
+document.addEventListener("click", warmUp, { once:true });
+
+/* ============ 錄音 ============ */
+var recState = { mr:null, stream:null, parts:[] };
+function stopStream(){
+  if(recState.stream){
+    try{ recState.stream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){}
+    recState.stream = null;
+  }
+}
+function stopRec(){
+  if(recState.mr && recState.mr.state === "recording"){
+    try{ recState.mr.stop(); }catch(e){}
+  }
+}
+function toggleRec(btn, audio, label){
+  if(recState.mr && recState.mr.state === "recording"){ stopRec(); return; }
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === "undefined"){
+    toast("這個瀏覽器不支援錄音。請改用 Chrome，並確認網址為 https。");
+    return;
+  }
+  navigator.mediaDevices.getUserMedia({ audio:true }).then(function(stream){
+    recState.stream = stream; recState.parts = [];
+    var mr;
+    try{ mr = new MediaRecorder(stream); }
+    catch(e){ toast("無法啟動錄音裝置"); stopStream(); return; }
+    recState.mr = mr;
+    mr.ondataavailable = function(e){ if(e.data && e.data.size) recState.parts.push(e.data); };
+    mr.onstop = function(){
+      stopStream();
+      btn.classList.remove("rec-on");
+      btn.textContent = label + "（重錄）";
+      try{
+        var blob = new Blob(recState.parts, { type: mr.mimeType || "audio/webm" });
+        audio.src = URL.createObjectURL(blob);
+        audio.style.display = "block";
+      }catch(e){ toast("錄音存檔失敗"); }
+      recState.mr = null;
+    };
+    mr.start();
+    btn.classList.add("rec-on");
+    btn.textContent = "■ 停止錄音";
+    setTimeout(function(){ if(recState.mr === mr) stopRec(); }, 15000);
+  }).catch(function(){
+    toast("需要麥克風權限才能錄音。請在網址列允許麥克風存取。");
+  });
+}
+
+/* ============ 分頁 ============ */
+var tabs = document.querySelectorAll(".tab");
+Array.prototype.forEach.call(tabs, function(btn){
+  btn.addEventListener("click", function(){
+    var target = btn.getAttribute("data-target");
+    Array.prototype.forEach.call(tabs, function(b){ b.classList.toggle("on", b === btn); });
+    Array.prototype.forEach.call(document.querySelectorAll("section.view"), function(s){
+      s.classList.toggle("on", s.id === target);
+    });
+    try{ window.speechSynthesis && window.speechSynthesis.cancel(); }catch(e){}
+    window.scrollTo({ top:0, behavior:"smooth" });
+    if(target === "v-log") renderLog();
+  });
+});
+
+/* ============ 語塊庫 ============ */
+var libCat = -1, libTodoOnly = false, libMask = false, libOrder = null;
+
+(function buildCatBars(){
+  var bar = $("catBar"), dbar = $("drillCatBar");
+  function mk(label, val, on){
+    var b = document.createElement("button");
+    b.className = "chip" + (on ? " on" : "");
+    b.innerHTML = label;
+    b.setAttribute("data-cat", val);
+    return b;
+  }
+  bar.appendChild(mk("全部<span class=\"ct\">100</span>", -1, true));
+  dbar.appendChild(mk("全部<span class=\"ct\">100</span>", -1, true));
+  CATS.forEach(function(c, i){
+    bar.appendChild(mk(c + '<span class="ct">10</span>', i, false));
+    dbar.appendChild(mk(c, i, false));
+  });
+  bar.addEventListener("click", function(e){
+    var b = e.target.closest("button.chip"); if(!b) return;
+    libCat = parseInt(b.getAttribute("data-cat"), 10);
+    Array.prototype.forEach.call(bar.children, function(x){ x.classList.toggle("on", x === b); });
+    renderCatNote(); renderLib();
+  });
+  dbar.addEventListener("click", function(e){
+    var b = e.target.closest("button.chip"); if(!b) return;
+    drillCat = parseInt(b.getAttribute("data-cat"), 10);
+    Array.prototype.forEach.call(dbar.children, function(x){ x.classList.toggle("on", x === b); });
+    nextDrill();
+  });
+})();
+
+function renderCatNote(){
+  var el = $("catNote");
+  if(libCat === -1){
+    el.innerHTML = "<b>十個場域</b>按「對話裡的功能」分類，不按文法。先挑一個最接近你實際會遇到的情境開始，不必從第一組順著練。";
+  } else {
+    el.innerHTML = "<b>" + CATS[libCat] + "</b>" + CAT_NOTE[libCat];
+  }
+}
+
+function libList(){
+  var q = ($("search").value || "").trim().toLowerCase();
+  var arr = DATA.filter(function(d){
+    if(libCat !== -1 && d.c !== libCat) return false;
+    if(libTodoOnly && repsOf(d.n) >= 5) return false;
+    if(q){
+      var hay = (d.en + " " + d.zh + " " + d.ex + " " + d.exz + " " + d.tip).toLowerCase();
+      if(hay.indexOf(q) === -1) return false;
+    }
+    return true;
+  });
+  if(libOrder){
+    var pos = {};
+    libOrder.forEach(function(n, i){ pos[n] = i; });
+    arr.sort(function(a, b){ return pos[a.n] - pos[b.n]; });
+  }
+  return arr;
+}
+
+function renderLib(){
+  var grid = $("grid"), arr = libList();
+  if(!arr.length){
+    grid.innerHTML = '<p class="empty">沒有符合的語塊。換個關鍵字，或按「全部」回到完整清單。</p>';
+    return;
+  }
+  grid.innerHTML = arr.map(function(d){
+    var r = repsOf(d.n);
+    return '<article class="chunk' + (r >= 5 ? " done" : "") + '" data-n="' + d.n + '">' +
+      '<div class="chunk-top"><span class="num"><b>' + pad3(d.n) + "</b> · " + CATS[d.c] + "</span>" + tallyHTML(r) + "</div>" +
+      '<div class="score' + (libMask ? " masked" : "") + '">' + scoreHTML(d) + "</div>" +
+      '<p class="zh">' + d.zh + "</p>" +
+      '<div class="detail" id="det' + d.n + '">' +
+        '<p class="tip">' + d.tip + "</p>" +
+        '<p class="ex">' + d.ex + "</p>" +
+        '<p class="exz">' + d.exz + "</p>" +
+        '<div class="ex-acts">' +
+          '<button class="act" data-do="exNormal">🔊 例句常速</button>' +
+          '<button class="act" data-do="exSlow">🐢 例句慢速</button>' +
+          '<button class="act" data-do="chain">▶ 語塊→例句</button>' +
+        "</div>" +
+        '<audio class="playback" id="aud' + d.n + '" controls style="display:none"></audio>' +
+      "</div>" +
+      '<div class="chunk-acts">' +
+        '<button class="act" data-do="normal">🔊 常速</button>' +
+        '<button class="act" data-do="slow">🐢 慢速</button>' +
+        '<button class="act" data-do="detail">連音與例句</button>' +
+        '<button class="act" data-do="rec">🎙 錄音</button>' +
+        '<button class="act key" data-do="rep">＋1 劃</button>' +
+      "</div></article>";
+  }).join("");
+}
+
+$("grid").addEventListener("click", function(e){
+  var btn = e.target.closest("button.act"); if(!btn) return;
+  var art = btn.closest(".chunk"); if(!art) return;
+  var n = parseInt(art.getAttribute("data-n"), 10);
+  var d = DATA[n - 1], act = btn.getAttribute("data-do");
+  if(act === "normal") speak(d.en, 0.95);
+  else if(act === "slow") speak(d.en, 0.55);
+  else if(act === "exNormal") speak(d.ex, 0.92);
+  else if(act === "exSlow") speak(d.ex, 0.55);
+  else if(act === "chain") speakSeq([d.en, d.ex], 0.9);
+  else if(act === "detail"){
+    var open = $("det" + n).classList.toggle("on");
+    btn.textContent = open ? "收合說明" : "連音與例句";
+  }
+  else if(act === "rec"){
+    $("det" + n).classList.add("on");
+    toggleRec(btn, $("aud" + n), "🎙 錄音");
+  }
+  else if(act === "rep"){
+    addRep(n);
+    var r = repsOf(n);
+    art.querySelector(".tally").outerHTML = tallyHTML(r);
+    art.classList.toggle("done", r >= 5);
+    if(r === 5) toast("第 " + n + " 組成「正」，練成了。");
+  }
+});
+
+$("search").addEventListener("input", renderLib);
+$("onlyTodo").addEventListener("click", function(){
+  libTodoOnly = !libTodoOnly;
+  this.textContent = libTodoOnly ? "顯示全部" : "只看未練成";
+  this.classList.toggle("on", libTodoOnly);
+  renderLib();
+});
+$("maskMode").addEventListener("click", function(){
+  libMask = !libMask;
+  this.textContent = libMask ? "顯示英文" : "遮字模式";
+  this.classList.toggle("on", libMask);
+  if(libMask) toast("只剩節奏點。看著點與中文，試著把整組說出來。");
+  renderLib();
+});
+$("shuffleLib").addEventListener("click", function(){
+  libOrder = shuffle(DATA.map(function(d){ return d.n; }));
+  toast("順序已打散 ── 避免靠位置記憶。");
+  renderLib();
+});
+
+/* ============ 刻意練習 ============ */
+var drillCat = -1, drillCur = null, drillStages = {}, drillTimer = null;
+
+function nextDrill(){
+  clearInterval(drillTimer);
+  $("dCount").textContent = "";
+  var pool = DATA.filter(function(d){ return drillCat === -1 || d.c === drillCat; });
+  var min = Infinity;
+  pool.forEach(function(d){ min = Math.min(min, repsOf(d.n)); });
+  var weakest = pool.filter(function(d){ return repsOf(d.n) === min; });
+  var pick = weakest[Math.floor(Math.random() * weakest.length)];
+  if(pool.length > 1 && pick === drillCur){
+    pick = weakest.length > 1
+      ? weakest[(weakest.indexOf(pick) + 1) % weakest.length]
+      : pool[Math.floor(Math.random() * pool.length)];
+  }
+  drillCur = pick;
+  drillStages = {};
+  $("dCat").innerHTML = "<b>" + pad3(pick.n) + "</b> · " + CATS[pick.c] + " · 已練 " + repsOf(pick.n) + " 劃";
+  $("dZh").textContent = pick.zh;
+  $("dScore").innerHTML = scoreHTML(pick);
+  $("dScore").classList.add("masked");
+  $("dTip").textContent = pick.tip;
+  $("dTip").classList.remove("on");
+  $("dExEn").textContent = pick.ex;
+  $("dExZh").textContent = pick.exz;
+  $("dEx").classList.remove("on");
+  $("dBar").style.width = "0%";
+  var a = $("dAudio"); a.removeAttribute("src"); a.style.display = "none";
+  $("dRec").textContent = "④ 錄音";
+  $("dRec").classList.remove("rec-on");
+  Array.prototype.forEach.call(document.querySelectorAll(".drill-ctrl .btn.ghost"), function(b){ b.classList.remove("used"); });
+}
+function markStage(s, btn){
+  drillStages[s] = true;
+  if(btn) btn.classList.add("used");
+  $("dBar").style.width = (Object.keys(drillStages).length / 5 * 100) + "%";
+}
+function revealEn(){ $("dScore").classList.remove("masked"); $("dTip").classList.add("on"); }
+function showEx(){ if(drillCur) $("dEx").classList.add("on"); }
+
+Array.prototype.forEach.call(document.querySelectorAll("[data-stage]"), function(b){
+  b.addEventListener("click", function(){
+    if(!drillCur) return;
+    var s = parseInt(b.getAttribute("data-stage"), 10);
+    if(s === 6){
+      clearInterval(drillTimer); $("dCount").textContent = "";
+      b.classList.add("used");
+      revealEn(); showEx();
+      speakSeq([drillCur.en, drillCur.ex], 0.9);
+      return;
+    }
+    markStage(s, b);
+    if(s === 1){
+      $("dScore").classList.add("masked"); $("dTip").classList.remove("on");
+      speak(drillCur.en, 0.95);
+    } else if(s === 2){ revealEn(); speak(drillCur.en, 0.55); }
+    else if(s === 3){ revealEn(); speak(drillCur.en, 1.0); }
+    else if(s === 5){
+      $("dScore").classList.add("masked"); $("dTip").classList.remove("on"); $("dEx").classList.remove("on");
+      var c = 3;
+      $("dCount").textContent = c;
+      clearInterval(drillTimer);
+      drillTimer = setInterval(function(){
+        c--;
+        if(c > 0){ $("dCount").textContent = c; }
+        else{
+          clearInterval(drillTimer);
+          $("dCount").textContent = "";
+          revealEn();
+          speak(drillCur.en, 0.95);
+        }
+      }, 1000);
+    }
+  });
+});
+$("dRec").addEventListener("click", function(){
+  if(!drillCur) return;
+  markStage(4, this);
+  revealEn();
+  toggleRec(this, $("dAudio"), "④ 錄音");
+});
+$("dReveal").addEventListener("click", function(){
+  if(!drillCur) return;
+  clearInterval(drillTimer); $("dCount").textContent = "";
+  revealEn(); showEx();
+});
+$("dNext").addEventListener("click", function(){
+  stopRec();
+  if(drillCur){
+    addRep(drillCur.n);
+    if(repsOf(drillCur.n) === 5) toast("第 " + drillCur.n + " 組成「正」，練成了。");
+  }
+  nextDrill();
+  renderLib();
+});
+$("dSkip").addEventListener("click", function(){ stopRec(); nextDrill(); });
+
+/* ============ 情境應用 ============ */
+function markUp(s){ return s.replace(/\*\*(.+?)\*\*/g, "<mark>$1</mark>"); }
+function plain(s){ return s.replace(/\*\*/g, ""); }
+
+(function renderScenes(){
+  var host = $("scenes");
+  host.innerHTML = SCENES.map(function(sc, si){
+    var lines = sc.lines.map(function(l, li){
+      return '<div class="line"><span class="spk">' + l[0] + "</span>" +
+        '<div class="line-body"><p class="line-en">' + markUp(l[1]) + "</p>" +
+        '<p class="line-zh">' + l[2] + "</p></div>" +
+        '<button class="play-line" data-s="' + si + '" data-l="' + li + '" title="朗讀這一句" aria-label="朗讀這一句">🔊</button></div>';
+    }).join("");
+    return '<div class="scene"><h3>' + sc.t + '</h3><p class="who">' + sc.w + "</p>" + lines +
+      '<div class="drill-ctrl" style="justify-content:flex-start;margin-top:16px">' +
+      '<button class="tiny-btn" data-play-all="' + si + '">▶ 依序朗讀整段</button>' +
+      '<button class="tiny-btn" data-stop="1">■ 停止</button></div></div>';
+  }).join("");
+  host.addEventListener("click", function(e){
+    var one = e.target.closest(".play-line");
+    if(one){
+      var sc = SCENES[parseInt(one.getAttribute("data-s"), 10)];
+      speak(plain(sc.lines[parseInt(one.getAttribute("data-l"), 10)][1]), 0.9);
+      return;
+    }
+    var all = e.target.closest("[data-play-all]");
+    if(all){
+      var s2 = SCENES[parseInt(all.getAttribute("data-play-all"), 10)];
+      speakSeq(s2.lines.map(function(l){ return plain(l[1]); }), 0.9);
+      return;
+    }
+    if(e.target.closest("[data-stop]")){
+      try{ window.speechSynthesis.cancel(); }catch(err){}
+    }
+  });
+})();
+
+/* ============ 產出測驗 ============ */
+var quiz = { qs:[], i:0, score:0, wrong:[], live:false };
+
+function buildQuiz(){
+  quiz.qs = shuffle(DATA).slice(0, 20).map(function(d){
+    var sameCat = DATA.filter(function(x){ return x.c === d.c && x.n !== d.n; });
+    var others = DATA.filter(function(x){ return x.c !== d.c; });
+    var opts = shuffle(sameCat).slice(0, 2).concat(shuffle(others).slice(0, 1));
+    return { d:d, opts: shuffle(opts.concat([d])) };
+  });
+  quiz.i = 0; quiz.score = 0; quiz.wrong = []; quiz.live = true;
+}
+function showQ(){
+  var q = quiz.qs[quiz.i];
+  $("qPos").innerHTML = "第 <b>" + (quiz.i + 1) + "</b> / " + quiz.qs.length + " 題";
+  $("qScore").innerHTML = "答對 <b>" + quiz.score + "</b>";
+  $("qPrompt").textContent = q.d.zh;
+  $("qHint").textContent = CATS[q.d.c] + "　先在心裡說出英文，再看選項";
+  $("qFeed").classList.remove("on");
+  $("qNext").style.display = "none";
+  $("qOpts").innerHTML = q.opts.map(function(o){
+    return '<button class="opt" data-n="' + o.n + '">' + o.en + "</button>";
+  }).join("");
+}
+$("qOpts").addEventListener("click", function(e){
+  var b = e.target.closest(".opt"); if(!b || !quiz.live) return;
+  if(b.disabled) return;
+  var q = quiz.qs[quiz.i];
+  var chosen = parseInt(b.getAttribute("data-n"), 10);
+  var ok = chosen === q.d.n;
+  Array.prototype.forEach.call($("qOpts").children, function(x){
+    x.disabled = true;
+    var xn = parseInt(x.getAttribute("data-n"), 10);
+    if(xn === q.d.n) x.classList.add("right");
+    else if(xn === chosen) x.classList.add("wrong");
+  });
+  if(ok) quiz.score++; else quiz.wrong.push(q.d.n);
+  $("qScore").innerHTML = "答對 <b>" + quiz.score + "</b>";
+  $("qFeed").innerHTML =
+    '<span class="fm">' + (ok ? "✓ " : "✗ 正解：" + q.d.en + "　") + q.d.tip + "</span>" +
+    '<div class="score sm">' + scoreHTML(q.d) + "</div>" +
+    '<div style="margin-top:9px">' + q.d.ex + '<span style="color:var(--muted)">　' + q.d.exz + "</span></div>" +
+    '<div class="feed-acts">' +
+      '<button class="act" data-qplay="chunk">🔊 語塊</button>' +
+      '<button class="act" data-qplay="ex">🔊 例句</button>' +
+      '<button class="act" data-qplay="chain">▶ 連播</button>' +
+    "</div>";
+  $("qFeed").classList.add("on");
+  speak(q.d.en, 0.9);
+  $("qNext").style.display = "inline-block";
+  $("qNext").textContent = (quiz.i === quiz.qs.length - 1) ? "看結果 →" : "下一題 →";
+});
+$("qFeed").addEventListener("click", function(e){
+  var b = e.target.closest("[data-qplay]"); if(!b) return;
+  var q = quiz.qs[quiz.i]; if(!q) return;
+  var mode = b.getAttribute("data-qplay");
+  if(mode === "chunk") speak(q.d.en, 0.9);
+  else if(mode === "ex") speak(q.d.ex, 0.92);
+  else speakSeq([q.d.en, q.d.ex], 0.9);
+});
+$("qStart").addEventListener("click", function(){
+  buildQuiz();
+  $("qResult").style.display = "none";
+  $("qStart").style.display = "none";
+  showQ();
+});
+$("qNext").addEventListener("click", function(){
+  quiz.i++;
+  if(quiz.i >= quiz.qs.length){ endQuiz(); return; }
+  showQ();
+});
+$("qAgain").addEventListener("click", function(){
+  buildQuiz();
+  $("qResult").style.display = "none";
+  $("qStart").style.display = "none";
+  showQ();
+  window.scrollTo({ top:0, behavior:"smooth" });
+});
+function endQuiz(){
+  quiz.live = false;
+  if(store.quizBest === null || quiz.score > store.quizBest){ store.quizBest = quiz.score; save(); }
+  $("qOpts").innerHTML = "";
+  $("qFeed").classList.remove("on");
+  $("qPrompt").textContent = "本輪結束";
+  $("qHint").textContent = "";
+  $("qPos").textContent = "已完成 " + quiz.qs.length + " 題";
+  $("qNext").style.display = "none";
+  $("qStart").style.display = "inline-block";
+  $("qStart").textContent = "重新開始";
+  var pct = Math.round(quiz.score / quiz.qs.length * 100);
+  var verdict = pct >= 90 ? "已經進入自動化階段，接下來練速度與情境反射。"
+             : pct >= 70 ? "認得出來但還不夠自動，回「刻意練習」補 Stage 05 盲測。"
+             : "目前仍在辨識階段，請先把場域拆開，一天一組十個慢慢跑完六階段。";
+  $("qResultText").textContent = "答對 " + quiz.score + " / " + quiz.qs.length + "（" + pct + "%）。" + verdict;
+  $("qWrongList").innerHTML = quiz.wrong.length
+    ? '<p style="font-size:13.5px;color:var(--muted);margin:16px 0 8px">答錯的組別：</p>' +
+      quiz.wrong.map(function(n){
+        var d = DATA[n - 1];
+        return '<div class="todo-item"><span class="tn">' + pad3(n) + "</span><span>" + d.en +
+          '　<span style="color:var(--muted)">' + d.zh + "</span></span></div>";
+      }).join("")
+    : '<p style="font-size:14px;color:var(--green);margin-top:14px">全數答對。</p>';
+  $("qResult").style.display = "block";
+  refreshStats();
+}
+
+/* ============ 訓練日誌 ============ */
+function doneCount(){ return DATA.filter(function(d){ return repsOf(d.n) >= 5; }).length; }
+function refreshStats(){ $("heroDone").textContent = doneCount(); }
+
+function renderLog(){
+  var total = 0, touched = 0;
+  DATA.forEach(function(d){
+    var r = repsOf(d.n);
+    total += r;
+    if(r > 0) touched++;
+  });
+  $("sDone").textContent = doneCount();
+  $("sReps").textContent = total;
+  $("sTouched").textContent = touched;
+  $("sQuiz").textContent = (store.quizBest === null) ? "—" : store.quizBest + " / 20";
+
+  $("catBars").innerHTML = CATS.map(function(c, i){
+    var inCat = DATA.filter(function(d){ return d.c === i; });
+    var ok = inCat.filter(function(d){ return repsOf(d.n) >= 5; }).length;
+    var pct = Math.round(ok / inCat.length * 100);
+    return '<div class="bar-row"><span class="lbl">' + c + "</span>" +
+      '<span class="bar"><i class="' + (pct === 100 ? "done" : "") + '" style="width:' + pct + '%"></i></span>' +
+      '<span class="val">' + ok + "/" + inCat.length + "</span></div>";
+  }).join("");
+
+  var todo = DATA.filter(function(d){ return repsOf(d.n) < 5; });
+  $("todoList").innerHTML = todo.length
+    ? todo.map(function(d){
+        return '<div class="todo-item"><span class="tn">' + pad3(d.n) + "</span><span>" + d.en +
+          '</span><span class="tr">' + repsOf(d.n) + "/5</span></div>";
+      }).join("")
+    : '<p style="font-size:14px;color:var(--green)">100 組全部練成。接下來請把工具收起來，去跟真人說話。</p>';
+  refreshStats();
+}
+$("resetAll").addEventListener("click", function(){
+  if(!window.confirm("確定清除所有劃記與測驗紀錄？這個動作無法復原。")) return;
+  store = { reps:{}, quizBest:null };
+  try{ localStorage.removeItem(OLDKEY); }catch(e){}
+  save();
+  renderLib(); renderLog(); refreshStats();
+  toast("紀錄已清除。");
+});
+
+/* ============ 主題切換 ============ */
+var THEME_KEY = "chunks100_theme";
+(function initTheme(){
+  var saved = null;
+  try{ saved = localStorage.getItem(THEME_KEY); }catch(e){}
+  if(saved === "light" || saved === "dark"){
+    document.documentElement.setAttribute("data-theme", saved);
+  }
+  function label(){
+    var t = document.documentElement.getAttribute("data-theme");
+    return t === "dark" ? "☾ 深色" : (t === "light" ? "☀ 亮色" : "◐ 跟隨系統");
+  }
+  var btn = $("themeBtn");
+  btn.textContent = label();
+  btn.addEventListener("click", function(){
+    var cur = document.documentElement.getAttribute("data-theme");
+    var next = cur === "light" ? "dark" : (cur === "dark" ? "" : "light");
+    if(next) document.documentElement.setAttribute("data-theme", next);
+    else document.documentElement.removeAttribute("data-theme");
+    try{
+      if(next) localStorage.setItem(THEME_KEY, next);
+      else localStorage.removeItem(THEME_KEY);
+    }catch(e){}
+    btn.textContent = label();
+  });
+})();
+
+/* ============ 啟動 ============ */
+$("heroScore").innerHTML = scoreHTML(DATA[29]);   /* What are you up to these days? */
+$("legendScore").innerHTML = scoreHTML(DATA[2]);  /* As far as I'm concerned, */
+renderCatNote();
+renderLib();
+refreshStats();
+nextDrill();
+</script>
+</body>
+</html>
