@@ -1284,7 +1284,8 @@ document.addEventListener("click", function(e){
   bt.classList.add("hit");
   clearTimeout(bt._hit);
   bt._hit = setTimeout(function(){ bt.classList.remove("hit"); }, 1600);
-  speak(w, 0.8);
+  /* 單獨一個大寫 I，瀏覽器會當成羅馬數字念成 "the first"；改送同音的 eye */
+  speak(w === "I" ? "eye" : w, 0.8);
 }, true);
 
 /* ---- 注音積木 ---- */
