@@ -122,6 +122,14 @@ h1{font-family:var(--display);font-size:clamp(29px,5.4vw,45px);line-height:1.12;
 .score.lg .beat.w i,.score.lg .beat.x i{width:8px;height:8px}
 /* 盲測遮蔽：留下節奏，藏起字 */
 .score.masked .beat em{color:transparent;background:var(--ground-2);border-radius:3px;user-select:none}
+.score:not(.masked) .beat[data-w]{cursor:pointer}
+.score:not(.masked) .beat[data-w] em{border-radius:4px;transition:background .15s,color .15s,box-shadow .15s}
+.score:not(.masked) .beat[data-w]:hover em{box-shadow:inset 0 -2px 0 var(--sage-2)}
+.beat.hit em{background:var(--sage-soft);color:var(--sage)!important;box-shadow:0 0 0 3px var(--sage-soft)}
+@supports (background:color-mix(in srgb,red 10%,transparent)){.beat.hit em{background:color-mix(in srgb,var(--sage) 18%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--sage) 18%,transparent)}}
+.beat.hit i{animation:beatPulse .5s ease-out}
+@keyframes beatPulse{0%{transform:scale(1.7)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.beat.hit i{animation:none}}
 /* Hero 內反白版 */
 .hero-demo .beat em{color:#c9cbe8}
 .hero-demo .beat.S em{color:#fff}
@@ -1257,9 +1265,27 @@ function scoreHTML(d){
   return words.map(function(w, i){
     var k = beats[i] || "w";
     if(k !== "S" && k !== "x") k = "w";
-    return '<span class="beat ' + k + '"><i></i><em>' + w + "</em></span>";
+    return '<span class="beat ' + k + '" data-w="' + i + '"><i></i><em>' + w + "</em></span>";
   }).join("");
 }
+
+/* ---- 點單字：高亮＋念這個字（遮字時不提示） ---- */
+function wordOf(t){
+  return String(t || "").replace(/[“”"«»…]/g, "").replace(/^[^A-Za-z0-9']+|[^A-Za-z0-9']+$/g, "").replace(/’/g, "'");
+}
+document.addEventListener("click", function(e){
+  var bt = e.target.closest && e.target.closest(".score .beat[data-w]");
+  if(!bt || bt.closest(".score.masked")) return;
+  var w = wordOf(bt.textContent);
+  if(!w) return;
+  e.stopPropagation();
+  [].forEach.call(document.querySelectorAll(".beat.hit"), function(x){ x.classList.remove("hit"); });
+  void bt.offsetWidth;
+  bt.classList.add("hit");
+  clearTimeout(bt._hit);
+  bt._hit = setTimeout(function(){ bt.classList.remove("hit"); }, 1600);
+  speak(w, 0.8);
+}, true);
 
 /* ---- 注音積木 ---- */
 /* 每塊積木的代表字：點積木就念這個字；ㄊ（清單用）、ㄚ 沒有代表字 */
