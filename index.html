@@ -496,6 +496,9 @@ footer .couplet{font-family:var(--display);font-size:15.5px;color:var(--link);ma
 /* 兩顆工具鈕並排：第一顆推到最右，第二顆緊貼 */
 .theme-btn + .theme-btn{margin-left:6px}
 #reloadBtn.spin{pointer-events:none;opacity:.7}
+a.theme-btn{text-decoration:none;display:inline-flex;align-items:center}
+.theme-btn.ydt{color:var(--sage);border-color:var(--sage)}
+.theme-btn.ydt:hover{background:var(--sage-soft);color:var(--sage)}
 
 /* ============ 注音積木 ============ */
 .bkrow{display:flex;align-items:stretch;gap:10px;max-width:100%;overflow-x:auto;padding:4px 0 6px;-webkit-overflow-scrolling:touch}
@@ -511,6 +514,13 @@ footer .couplet{font-family:var(--display);font-size:15.5px;color:var(--link);ma
 .bktone.s{color:var(--stress);font-weight:700}
 .bkstack{display:flex;flex-direction:column;gap:2px;align-items:center}
 .bkimg{width:var(--bs,32px);height:var(--bs,32px);display:block;flex:none}
+[data-bk]{cursor:pointer;transition:transform .12s}
+[data-bk]:hover{transform:translateY(-1px)}
+[data-bk].say{transform:scale(.9);filter:brightness(1.06)}
+.cell[data-bk]{cursor:pointer}
+.cell[data-bk]:hover{border-color:var(--sage)}
+.cell[data-bk] .ce::before{content:"🔊 ";font-size:.85em}
+.cell[data-bk].noword .ce::before{content:""}
 .bkmiss{width:var(--bs,32px);height:var(--bs,32px);border:1.5px dashed var(--warn);border-radius:22%;display:flex;align-items:center;justify-content:center;font-size:calc(var(--bs,32px)*.5);color:var(--warn);background:var(--warn-soft);flex:none;line-height:1}
 .bkph{font-family:var(--mono);font-size:10.5px;color:var(--muted);line-height:1.3;margin-top:1px;white-space:nowrap}
 .bkbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 8px}
@@ -582,6 +592,7 @@ footer .couplet{font-family:var(--display);font-size:15.5px;color:var(--link);ma
   <button class="tab" data-target="v-talk">情境應用</button>
   <button class="tab" data-target="v-quiz">產出測驗</button>
   <button class="tab" data-target="v-log">訓練日誌</button>
+  <a class="theme-btn ydt" href="https://sor-tone.web.app/" target="_blank" rel="noopener" title="蕭博士 SoR 英文口說一點通：輸入英文句子查注音積木">一點通 ↗</a>
   <button class="theme-btn" id="reloadBtn" title="載入最新版本；劃記與測驗紀錄會保留" aria-label="重新整理，載入最新版本">↻ 重新整理</button>
   <button class="theme-btn" id="themeBtn" aria-label="切換亮色或深色顯示">◐ 亮／深</button>
 </nav>
@@ -1181,11 +1192,37 @@ function scoreHTML(d){
 }
 
 /* ---- 注音積木 ---- */
+/* 每塊積木的代表字：點積木就念這個字；ㄊ（清單用）、ㄚ 沒有代表字 */
+function bkWord(n){
+  var w = (BINFO[n] || [])[3] || "";
+  return /[a-z]/i.test(w) ? w : "";
+}
+function sayBlock(el){
+  var n = +el.getAttribute("data-bk"), w = bkWord(n);
+  if(!w){ toast("這塊積木沒有代表字"); return; }
+  speak(w, 0.8);
+  el.classList.add("say");
+  setTimeout(function(){ el.classList.remove("say"); }, 260);
+}
+document.addEventListener("click", function(e){
+  var el = e.target.closest && e.target.closest("[data-bk]");
+  if(!el) return;
+  e.stopPropagation();
+  sayBlock(el);
+}, true);
+document.addEventListener("keydown", function(e){
+  if((e.key === "Enter" || e.key === " ") && e.target.classList && e.target.classList.contains("cell") && e.target.hasAttribute("data-bk")){
+    e.preventDefault(); sayBlock(e.target);
+  }
+});
 function bkCell(n){
   var inf = BINFO[n] || ["?", "", "sp", ""];
   var tip = n + "　" + inf[0] + "　" + inf[1];
-  if(BIMG[n]) return '<img class="bkimg" src="' + BIMG[n] + '" alt="' + inf[0] + '" title="' + tip + '">';
-  return '<span class="bkmiss" title="' + tip + '（專案缺原圖）">' + inf[0] + "</span>";
+  var w = bkWord(n);
+  if(w) tip += "　點一下聽 " + w;
+  var att = ' data-bk="' + n + '" title="' + tip + '"';
+  if(BIMG[n]) return '<img class="bkimg" src="' + BIMG[n] + '" alt="' + inf[0] + '"' + att + ">";
+  return '<span class="bkmiss"' + att.replace('">', '（專案缺原圖）">') + ">" + inf[0] + "</span>";
 }
 function bkCol(spec){                       /* "4:fækt:4.49.25.17" */
   var p = spec.split(":");
@@ -2122,7 +2159,8 @@ function drawChart(){
   });
   $("chartGrid").innerHTML = rows.map(function(n){
     var i = BINFO[n];
-    return '<div class="cell' + (BIMG[n] ? "" : " miss") + '">' + bkCell(n) +
+    var w = bkWord(n);
+    return '<div class="cell' + (BIMG[n] ? "" : " miss") + (w ? "" : " noword") + '" data-bk="' + n + '" tabindex="0" role="button" aria-label="積木 ' + n + " " + i[0] + (w ? "，念 " + w : "") + '">' + bkCell(n).replace(/ data-bk="\d+"/, "") +
       '<div><div class="cn">' + n + '</div><div class="ck">' + i[0] + "　" + i[1] + "</div>" +
       '<div class="ce">' + i[3] + "</div></div></div>";
   }).join("");
