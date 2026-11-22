@@ -500,6 +500,49 @@ a.theme-btn{text-decoration:none;display:inline-flex;align-items:center}
 .theme-btn.ydt{color:var(--sage);border-color:var(--sage)}
 .theme-btn.ydt:hover{background:var(--sage-soft);color:var(--sage)}
 
+
+/* ============ 通勤連續朗讀 ============ */
+.tiny-btn.cm-go{background:var(--sage);border-color:var(--sage);color:var(--on-sage,#fff)}
+.tiny-btn.cm-go:hover{background:var(--sage-2);border-color:var(--sage-2)}
+.cm{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:80;width:min(560px,calc(100vw - 24px));
+  background:var(--panel);border:1px solid var(--line-2);border-top:3px solid var(--sage);border-radius:var(--radius);
+  box-shadow:0 10px 30px rgba(20,22,35,.22);padding:12px 14px 12px;max-height:calc(100vh - 28px);overflow:auto}
+.cm[hidden]{display:none}
+.cm-top{display:flex;align-items:center;gap:10px}
+.cm-tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--sage);font-weight:600}
+.cm-step{font-size:12px;color:var(--muted);background:var(--panel-2);border-radius:20px;padding:2px 9px}
+.cm-step:empty{display:none}
+.cm-x{margin-left:auto;background:none;border:none;font-size:16px;color:var(--muted);cursor:pointer;padding:4px 6px;border-radius:6px}
+.cm-x:hover{background:var(--hover);color:var(--ink)}
+.cm-en{font-family:var(--display);font-size:21px;line-height:1.3;color:var(--ink);margin:8px 0 2px;min-height:1.3em}
+.cm-zh{font-size:14px;color:var(--ink-2);margin:0 0 9px;min-height:1.2em}
+.cm-bar{height:3px;background:var(--line);border-radius:3px;overflow:hidden}
+.cm-bar i{display:block;height:100%;width:0;background:var(--sage);transition:width .3s}
+.cm-ctl{display:flex;align-items:center;gap:8px;margin-top:10px}
+.cm-ctl button{background:var(--panel-2);border:1px solid var(--line-2);color:var(--ink);border-radius:50%;width:42px;height:42px;font-size:15px;cursor:pointer;display:grid;place-items:center}
+.cm-ctl button:hover{border-color:var(--sage)}
+.cm-ctl .main{width:52px;height:52px;font-size:19px;background:var(--sage);border-color:var(--sage);color:var(--on-sage,#fff)}
+.cm-ctl .main:hover{background:var(--sage-2)}
+.cm-ctl .cm-setbtn{margin-left:auto;width:auto;height:34px;border-radius:var(--radius);padding:0 12px;font-size:12.5px;font-weight:600;font-family:var(--body);color:var(--ink-2)}
+.cm-ctl .cm-setbtn[aria-expanded="true"]{border-color:var(--sage);color:var(--sage);background:var(--sage-soft)}
+.cm-set{border-top:1px dashed var(--line-2);margin-top:11px;padding-top:10px;display:grid;gap:7px}
+.cm-set[hidden]{display:none}
+.cm-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cm-row[data-off]{display:none}
+.cm-lab{font-size:12.5px;color:var(--muted);width:64px;flex:none}
+.cm-row .tiny-btn{padding:5px 10px;font-size:12px}
+.cm-row .tiny-btn.on{background:var(--sage-soft);border-color:var(--sage);color:var(--sage)}
+.cm-note{font-size:11.5px;color:var(--muted);line-height:1.6;margin:4px 0 0}
+body.cm-on{padding-bottom:230px}
+body.cm-on .ck-dock{display:none}
+body.cm-on #toast{bottom:230px}
+.chunk.cm-cur,.ph-item.cm-cur{outline:3px solid var(--sage);outline-offset:2px;scroll-margin-top:84px}
+@media (max-width:560px){
+  .cm{bottom:8px;padding:10px 12px}
+  .cm-en{font-size:18px}
+  .cm-lab{width:auto;min-width:56px}
+}
+
 /* ============ 注音積木 ============ */
 .bkrow{display:flex;align-items:stretch;gap:10px;max-width:100%;overflow-x:auto;padding:4px 0 6px;-webkit-overflow-scrolling:touch}
 .bkrow::-webkit-scrollbar{height:5px}
@@ -694,6 +737,7 @@ a.theme-btn{text-decoration:none;display:inline-flex;align-items:center}
     <button class="tiny-btn" id="maskMode">遮字模式</button>
     <button class="tiny-btn on" id="bkMode">積木：口語</button>
     <button class="tiny-btn" id="shuffleLib">打散順序</button>
+    <button class="tiny-btn cm-go" data-cm="lib" title="一句接一句自動朗讀，可邊走邊聽、跟著念">🚇 通勤連續朗讀</button>
   </div>
   <div class="grid" id="grid"></div>
 </section>
@@ -800,6 +844,7 @@ a.theme-btn{text-decoration:none;display:inline-flex;align-items:center}
     <button class="tiny-btn" id="ckAllBtn" data-ct="all">積木：全部展開</button>
     <span class="seg"><button class="tiny-btn on" data-ct="c">口語連音</button><button class="tiny-btn" data-ct="d">字典逐字</button></span>
     <button class="tiny-btn" id="ckMaskBtn" data-ct="mask">遮字模式</button>
+    <button class="tiny-btn cm-go" data-cm="ck" title="一句接一句自動朗讀，可邊走邊聽、跟著念">🚇 通勤連續朗讀</button>
     <span class="legend" style="margin-left:auto;font-size:12.5px"><span><i class="lS"></i>重讀</span><span><i class="lw"></i>輕讀</span><span><i class="lx"></i>弱化</span></span>
   </div>
   <div id="ckLib"></div>
@@ -868,6 +913,31 @@ a.theme-btn{text-decoration:none;display:inline-flex;align-items:center}
 
 </div>
 <!-- Chunky 陪練員浮窗 -->
+<div class="cm" id="cm" role="region" aria-label="通勤連續朗讀" hidden>
+  <div class="cm-top">
+    <span class="cm-tag" id="cmTag">🚇 通勤連續朗讀</span>
+    <span class="cm-step" id="cmStep"></span>
+    <button class="cm-x" id="cmClose" aria-label="停止並關閉">✕</button>
+  </div>
+  <p class="cm-en" id="cmEn"></p>
+  <p class="cm-zh" id="cmZh"></p>
+  <div class="cm-bar"><i id="cmProg"></i></div>
+  <div class="cm-ctl">
+    <button id="cmPrev" aria-label="上一句">⏮</button>
+    <button id="cmPlay" class="main" aria-label="暫停">⏸</button>
+    <button id="cmNext" aria-label="下一句">⏭</button>
+    <button id="cmSetBtn" class="cm-setbtn" aria-expanded="false" aria-controls="cmSet">⚙ 設定</button>
+  </div>
+  <div class="cm-set" id="cmSet" hidden>
+    <div class="cm-row" data-row="rate"><span class="cm-lab">速度</span><span class="seg"><button class="tiny-btn" data-k="rate" data-v="0.7">慢</button><button class="tiny-btn" data-k="rate" data-v="0.85">中</button><button class="tiny-btn" data-k="rate" data-v="1">常速</button></span></div>
+    <div class="cm-row" data-row="rep"><span class="cm-lab">每句</span><span class="seg"><button class="tiny-btn" data-k="rep" data-v="1">1 遍</button><button class="tiny-btn" data-k="rep" data-v="2">2 遍</button><button class="tiny-btn" data-k="rep" data-v="3">3 遍</button></span></div>
+    <div class="cm-row" data-row="gap"><span class="cm-lab">跟讀留白</span><span class="seg"><button class="tiny-btn" data-k="gap" data-v="1">開</button><button class="tiny-btn" data-k="gap" data-v="0">關</button></span></div>
+    <div class="cm-row" data-row="zh"><span class="cm-lab">中文</span><span class="seg"><button class="tiny-btn" data-k="zh" data-v="1">念</button><button class="tiny-btn" data-k="zh" data-v="0">不念</button></span></div>
+    <div class="cm-row" data-row="ex"><span class="cm-lab">例句</span><span class="seg"><button class="tiny-btn" data-k="ex" data-v="1">念</button><button class="tiny-btn" data-k="ex" data-v="0">不念</button></span></div>
+    <div class="cm-row" data-row="loop"><span class="cm-lab">整輪播完</span><span class="seg"><button class="tiny-btn" data-k="loop" data-v="0">停止</button><button class="tiny-btn" data-k="loop" data-v="1">從頭循環</button></span></div>
+    <p class="cm-note">跟讀留白：每念完一遍，留一段和原句差不多長的空白讓你跟著說。播放時會盡量讓螢幕保持開啟；鎖住螢幕或切到別的 App，瀏覽器會暫停朗讀，回來後從這一句重新開始。</p>
+  </div>
+</div>
 <div class="ck-dock" id="ckDock">
   <div class="ck-wrap">
     <div class="ck-bub" id="ckBub">
@@ -1299,6 +1369,7 @@ function warmUp(){
   warmed = true;
 }
 function speak(text, rate){
+  if(typeof cm !== "undefined" && cm && cm.playing) cmPause();
   if(!window.speechSynthesis || typeof SpeechSynthesisUtterance === "undefined"){
     toast("這個瀏覽器不支援語音朗讀，建議改用 Chrome 或 Safari");
     return;
@@ -1317,6 +1388,7 @@ function speak(text, rate){
 }
 /* 依序朗讀多句：語塊 → 例句，中間留一拍 */
 function speakSeq(list, rate){
+  if(typeof cm !== "undefined" && cm && cm.playing) cmPause();
   if(!window.speechSynthesis || typeof SpeechSynthesisUtterance === "undefined"){
     toast("這個瀏覽器不支援語音朗讀，建議改用 Chrome 或 Safari");
     return;
@@ -1920,6 +1992,7 @@ $("ckBubMore").addEventListener("click", function(){ ckSay(ckLastSec); });
 
 /* 對外入口：記住情境與時間，點頭像時給同一類的話 */
 function ckSay(sec, opts){
+  if(typeof cm !== "undefined" && cm && cm.playing) return;   /* 通勤朗讀中，Chunky 先不插話 */
   ckLastSec = sec;
   ckLastAt = Date.now();
   ckShow(sec, opts);
@@ -2165,6 +2238,207 @@ function drawChart(){
       '<div class="ce">' + i[3] + "</div></div></div>";
   }).join("");
 }
+
+
+/* ============ 通勤連續朗讀 ============
+   依目前畫面上的清單順序（篩選、搜尋、打散都算數），一句接一句念：
+   英文 × N 遍（每遍後可留跟讀空白）→ 中文 → 例句（語塊庫才有）→ 下一句。
+   用 utterance 的 onend 串接，另設保險計時器：部分瀏覽器偶爾不觸發 onend。 */
+var CM_KEY = "chunks100_commute";
+var cm = { on:false, playing:false, src:"", ids:[], i:0, tok:0, keep:[], wl:null, lastScroll:0,
+           opt:{ rate:0.85, rep:2, gap:1, zh:1, ex:0, loop:0 } };
+try{
+  var cmSaved = JSON.parse(localStorage.getItem(CM_KEY) || "null");
+  if(cmSaved) for(var ck in cm.opt) if(ck in cmSaved) cm.opt[ck] = +cmSaved[ck];
+}catch(e){}
+function cmSaveOpt(){ try{ localStorage.setItem(CM_KEY, JSON.stringify(cm.opt)); }catch(e){} }
+
+function cmClean(t){
+  return String(t || "").replace(/<[^>]+>/g, "")
+    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, "")
+    .replace(/[／/]/g, "，").replace(/\s+/g, " ").trim();
+}
+function zhVoice(){
+  if(!voices.length) loadVoices();
+  var best = null;
+  for(var i = 0; i < voices.length; i++){
+    var l = (voices[i].lang || "").replace("_", "-");
+    if(/^zh-TW/i.test(l) || /Mei-Jia|臺灣|台灣/.test(voices[i].name)) return voices[i];
+    if(!best && /^(zh|cmn)/i.test(l) && !/HK|yue/i.test(l)) best = voices[i];
+  }
+  return best;
+}
+function cmItem(id){
+  if(cm.src === "lib"){
+    var d = DATA.filter(function(x){ return x.n === id; })[0];
+    return { tag:"語塊 " + pad3(id), en:cmClean(d.en), zh:cmClean(d.zh), ex:cmClean(d.ex), exz:cmClean(d.exz) };
+  }
+  var p = ckPhr(id);
+  return { tag:"鼓勵語 " + pad3(id), en:cmClean(p[2]), zh:cmClean(p[3]), ex:"" };
+}
+function cmIdsFromPage(src){
+  var sel = src === "lib" ? "#grid .chunk[data-n]" : "#ckLib .ph-item[data-pn]";
+  var at = src === "lib" ? "data-n" : "data-pn";
+  return [].map.call(document.querySelectorAll(sel), function(el){ return +el.getAttribute(at); });
+}
+
+/* 念一段；done(實際秒數) 只會被呼叫一次 */
+function cmUtter(text, lang, rate, tok, done){
+  var fired = false, t0 = Date.now(), timer = null;
+  function fin(){
+    if(fired) return; fired = true; clearTimeout(timer);
+    if(tok === cm.tok) done(Date.now() - t0);
+  }
+  try{
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = lang; u.rate = rate;
+    var v = lang === "en-US" ? pickVoice() : zhVoice();
+    if(v) u.voice = v;
+    u.onend = fin; u.onerror = fin;
+    cm.keep.push(u); if(cm.keep.length > 12) cm.keep.shift();   /* 防 Chrome 回收 utterance 後 onend 不觸發 */
+    window.speechSynthesis.speak(u);
+  }catch(e){ setTimeout(fin, 300); return; }
+  var per = lang === "en-US" ? 115 : 330;
+  timer = setTimeout(fin, 2500 + text.length * per / rate);
+}
+function cmWait(ms, tok, done){ setTimeout(function(){ if(tok === cm.tok) done(); }, ms); }
+
+function cmSteps(it){
+  var o = cm.opt, st = [], hasZh = !!zhVoice();
+  for(var r = 1; r <= o.rep; r++){
+    st.push({ say:it.en, lang:"en-US", rate:o.rate, label:o.rep > 1 ? "第 " + r + "／" + o.rep + " 遍" : "英文" });
+    st.push(o.gap ? { shadow:true, label:"換你說" } : { ms:550 });
+  }
+  if(o.zh && hasZh && it.zh){ st.push({ say:it.zh, lang:"zh-TW", rate:1, label:"中文" }); st.push({ ms:600 }); }
+  if(o.ex && it.ex){
+    st.push({ say:it.ex, lang:"en-US", rate:o.rate, label:"例句", showEn:it.ex, showZh:it.exz });
+    st.push(o.gap ? { shadow:true, label:"換你說" } : { ms:600 });
+  }
+  st.push({ ms:900 });
+  return st;
+}
+function cmShow(it, step){
+  $("cmEn").textContent = step && step.showEn || it.en;
+  $("cmZh").textContent = step && step.showZh || it.zh;
+  if(step && step.label) $("cmStep").textContent = step.label;
+}
+function cmMark(id){
+  [].forEach.call(document.querySelectorAll(".cm-cur"), function(el){ el.classList.remove("cm-cur"); });
+  var el = document.querySelector(cm.src === "lib" ? '#grid .chunk[data-n="' + id + '"]' : '#ckLib .ph-item[data-pn="' + id + '"]');
+  if(!el) return;
+  el.classList.add("cm-cur");
+  if(el.offsetParent && Date.now() - cm.lastScroll > 5000){
+    try{ el.scrollIntoView({ block:"start", behavior:"smooth" }); }catch(e){ el.scrollIntoView(); }
+  }
+}
+function cmPlayItem(){
+  if(!window.speechSynthesis || typeof SpeechSynthesisUtterance === "undefined"){
+    toast("這個瀏覽器不支援語音朗讀，建議改用 Chrome 或 Safari"); cmStop(); return;
+  }
+  var tok = ++cm.tok;
+  try{ window.speechSynthesis.cancel(); }catch(e){}
+  cm.playing = true; cmButtons();
+  var id = cm.ids[cm.i], it = cmItem(id), steps = cmSteps(it), last = 1500;
+  $("cmTag").textContent = "🚇 " + it.tag + "　" + (cm.i + 1) + "／" + cm.ids.length;
+  $("cmProg").style.width = ((cm.i + 1) / cm.ids.length * 100) + "%";
+  cmShow(it, steps[0]); cmMark(id);
+  (function run(k){
+    if(tok !== cm.tok) return;
+    if(k >= steps.length){ cmAdvance(); return; }
+    var s = steps[k];
+    if(s.say){ cmShow(it, s); cmUtter(s.say, s.lang, s.rate, tok, function(ms){ last = ms; run(k + 1); }); }
+    else if(s.shadow){ if(s.label) $("cmStep").textContent = s.label; cmWait(Math.min(7000, Math.max(1300, last + 500)), tok, function(){ run(k + 1); }); }
+    else cmWait(s.ms, tok, function(){ run(k + 1); });
+  })(0);
+}
+function cmAdvance(){
+  if(cm.i + 1 < cm.ids.length){ cm.i++; cmPlayItem(); return; }
+  if(cm.opt.loop){ cm.i = 0; cmPlayItem(); return; }
+  var n = cm.ids.length;
+  cmStop();
+  toast("通勤朗讀完成，一共聽了 " + n + " 句 🎉");
+  setTimeout(function(){ ckSay(3); }, 600);
+}
+function cmPause(){
+  cm.tok++; cm.playing = false;
+  try{ window.speechSynthesis.cancel(); }catch(e){}
+  $("cmStep").textContent = "已暫停";
+  cmButtons(); cmWake(false);
+}
+function cmResume(){ cmWake(true); cmPlayItem(); }
+function cmStop(){
+  cm.tok++; cm.playing = false; cm.on = false;
+  try{ window.speechSynthesis.cancel(); }catch(e){}
+  $("cm").hidden = true;
+  document.body.classList.remove("cm-on");
+  [].forEach.call(document.querySelectorAll(".cm-cur"), function(el){ el.classList.remove("cm-cur"); });
+  cmWake(false);
+}
+function cmStart(src){
+  var ids = cmIdsFromPage(src);
+  if(!ids.length){ toast("目前清單是空的，先調整篩選再播放"); return; }
+  if(cm.on) cmStop();
+  warmUp();
+  cm.src = src; cm.ids = ids; cm.i = 0; cm.on = true; cm.lastScroll = 0;
+  ckHide();
+  $("cm").hidden = false;
+  document.body.classList.add("cm-on");
+  cmSyncSet();
+  cmWake(true);
+  if(cm.opt.zh && voices.length && !zhVoice()) toast("這台裝置沒有中文語音，只念英文");
+  cmPlayItem();
+}
+function cmButtons(){
+  var b = $("cmPlay");
+  b.textContent = cm.playing ? "⏸" : "▶";
+  b.setAttribute("aria-label", cm.playing ? "暫停" : "繼續播放");
+}
+function cmSyncSet(){
+  [].forEach.call(document.querySelectorAll("#cmSet [data-k]"), function(b){
+    b.classList.toggle("on", String(cm.opt[b.getAttribute("data-k")]) === b.getAttribute("data-v"));
+  });
+  var exRow = document.querySelector('#cmSet [data-row="ex"]');
+  if(cm.src === "ck") exRow.setAttribute("data-off", ""); else exRow.removeAttribute("data-off");
+}
+/* 盡量不讓螢幕休眠（支援 Screen Wake Lock 的瀏覽器才有效） */
+function cmWake(on){
+  try{
+    if(on && "wakeLock" in navigator && !cm.wl){
+      navigator.wakeLock.request("screen").then(function(l){
+        cm.wl = l; l.addEventListener("release", function(){ cm.wl = null; });
+      }).catch(function(){});
+    }else if(!on && cm.wl){ cm.wl.release(); cm.wl = null; }
+  }catch(e){}
+}
+document.addEventListener("visibilitychange", function(){
+  if(document.visibilityState === "visible" && cm.on && cm.playing) cmResume();   /* 回到頁面：這一句重新開始 */
+});
+["wheel", "touchmove"].forEach(function(ev){
+  window.addEventListener(ev, function(){ if(cm.on) cm.lastScroll = Date.now(); }, { passive:true });
+});
+
+document.addEventListener("click", function(e){
+  var g = e.target.closest && e.target.closest(".cm-go");
+  if(g) cmStart(g.getAttribute("data-cm"));
+});
+$("cmPlay").addEventListener("click", function(){ if(cm.playing) cmPause(); else cmResume(); });
+$("cmPrev").addEventListener("click", function(){ cm.i = Math.max(0, cm.i - 1); cmResume(); });
+$("cmNext").addEventListener("click", function(){
+  if(cm.i + 1 < cm.ids.length) cm.i++; else if(cm.opt.loop) cm.i = 0;
+  cmResume();
+});
+$("cmClose").addEventListener("click", cmStop);
+$("cmSetBtn").addEventListener("click", function(){
+  var open = $("cmSet").hidden;
+  $("cmSet").hidden = !open;
+  this.setAttribute("aria-expanded", open ? "true" : "false");
+});
+$("cmSet").addEventListener("click", function(e){
+  var b = e.target.closest("[data-k]"); if(!b) return;
+  cm.opt[b.getAttribute("data-k")] = +b.getAttribute("data-v");
+  cmSaveOpt(); cmSyncSet();
+  if(cm.playing) cmPlayItem();     /* 新設定從這一句開始生效 */
+});
 
 /* ============ 啟動 ============ */
 $("heroScore").innerHTML = scoreHTML(DATA[29]);   /* What are you up to these days? */
